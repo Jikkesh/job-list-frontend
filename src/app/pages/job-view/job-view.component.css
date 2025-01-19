@@ -1,0 +1,48 @@
+/* Add your custom styles here */
+.prose {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .text-blue-100 {
+    color: #93c5fd;
+  }
+  
+  .bg-blue-600 {
+    background-color: #2563eb;
+  }
+  
+  .text-xl {
+    font-size: 1.25rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.875rem;
+  }
+  
+  .mb-2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .mt-8 {
+    margin-top: 2rem;
+  }
+  
+  .pt-8 {
+    padding-top: 2rem;
+  }
+  

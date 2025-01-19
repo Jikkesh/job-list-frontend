@@ -1,0 +1,15 @@
+<div class="flex-1">
+    
+    <h1 class="title">{{ title }}</h1>
+    <div class="space-y-6">
+        <ng-container *ngFor="let job of jobs">
+            <a [routerLink]="['/job', job.id]" class="cursor-pointer"> 
+            <app-card [id]="job.id" [title]="job.title" [company]="job.company" [location]="job.location"
+                [salary]="job.salary" [type]="job.type" [postedDate]="job.postedDate"
+                [description]="job.description"></app-card>
+            </a>
+        </ng-container>
+    </div>
+    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
+        (pageChange)="onPageChange($event)"></app-pagination>
+</div>

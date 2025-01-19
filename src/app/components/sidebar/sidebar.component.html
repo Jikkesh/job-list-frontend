@@ -1,0 +1,16 @@
+<div class="sidebar">
+    <div class="sidebar-container">
+      <div class="header">
+        <!-- <app-trending-up-icon class="icon"></app-trending-up-icon> -->
+        <h2 class="title">Recommended for You</h2>
+      </div>
+      <div class="jobs-list">
+        <div *ngFor="let job of recommendedJobs" class="job-card">
+          <h3 class="job-title">{{ job.title }}</h3>
+          <p class="company-name">{{ job.company }}</p>
+          <p class="salary">{{ job.salary }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

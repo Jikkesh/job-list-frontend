@@ -1,0 +1,64 @@
+.sidebar {
+    width: 20rem;
+    margin-left: 2rem;
+  }
+  
+  .sidebar-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3b82f6;
+  }
+  
+  .title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .job-card {
+    padding: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    transition: border-color 0.3s;
+  }
+  
+  .job-card:hover {
+    border-color: #3b82f6;
+  }
+  
+  .job-title {
+    font-weight: 500;
+    color: #1f2937;
+  }
+  
+  .company-name {
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  
+  .salary {
+    font-size: 0.875rem;
+    color: #3b82f6;
+    margin-top: 0.25rem;
+  }
+  

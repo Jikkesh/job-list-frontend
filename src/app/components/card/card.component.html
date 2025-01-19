@@ -1,0 +1,44 @@
+<a class="block">
+    <div class="card">
+      <div class="flex items-start space-x-4">
+        <img
+          [src]="companyLogo"
+          [alt]="company + ' logo'"
+          class="company-logo"
+        />
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="job-title">{{ title }}</h3>
+              <div class="job-details">
+                <div class="flex items-center">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v6m0 0V9m0 0l3-3m-3 3l-3-3m6 3h6m0 0h-6m0 0v6m0-6V9m0 0l3 3m-3-3l-3 3"></path>
+                  </svg>
+                  <span>{{ company }}</span>
+                </div>
+                <div class="flex items-center">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                  </svg>
+                  <span>{{ location }}</span>
+                </div>
+                <div class="flex items-center">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10h14M12 6v12"></path>
+                  </svg>
+                  <span>{{ salary }}</span>
+                </div>
+              </div>
+            </div>
+            <span class="badge">{{ type }}</span>
+          </div>
+          <p class="description">{{ description }}</p>
+          <div class="flex justify-between items-center">
+            <span class="posted-date">Posted {{ postedDate }}</span>
+            <span class="view-details">View Details →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>

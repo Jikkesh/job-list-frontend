@@ -1,0 +1,30 @@
+<div class="min-h-screen flex flex-col">
+    <!-- Main Content Area -->
+    <div class="flex-1 flex">
+      <!-- Left Ad Space -->
+      <div class="hidden lg:block w-64 p-4">
+        <div
+          class="bg-gray-100 h-full rounded-lg flex items-center justify-center text-gray-400"
+        >
+          {{ adSpaceText }}
+        </div>
+      </div>
+  
+      <!-- Main Content -->
+      <main class="flex-1">
+        <ng-content></ng-content>
+      </main>
+  
+      <!-- Right Ad Space -->
+      <div class="hidden lg:block w-64 p-4">
+        <div
+          class="bg-gray-100 h-full rounded-lg flex items-center justify-center text-gray-400"
+        >
+          {{ adSpaceText }}
+        </div>
+      </div>
+    </div>
+  
+    <!-- Footer Component -->
+    <app-footer></app-footer>
+  </div>

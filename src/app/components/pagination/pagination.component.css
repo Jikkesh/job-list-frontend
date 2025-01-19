@@ -1,0 +1,34 @@
+button {
+    transition: background-color 0.2s;
+  }
+  
+  button.active {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  button:hover {
+    background-color: #f3f4f6;
+  }
+  
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .icon-chevron-left,
+  .icon-chevron-right {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+  }
+  
+  /* Example icons (replace with your preferred icon source or library) */
+  .icon-chevron-left {
+    background-image: url('data:image/svg+xml,<svg>...</svg>');
+  }
+  
+  .icon-chevron-right {
+    background-image: url('data:image/svg+xml,<svg>...</svg>');
+  }

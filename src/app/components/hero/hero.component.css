@@ -1,0 +1,47 @@
+.hero-container {
+    background: linear-gradient(to right, #2563EB, #1E40AF);
+    color: white;
+    padding: 80px 0;
+  }
+  
+  .text-center {
+    text-align: center;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .icon {
+    height: 32px;
+    width: 32px;
+  }
+  
+  .highlight-text {
+    font-size: 18px;
+    font-weight: 500;
+    background: rgba(59, 130, 246, 0.2);
+    padding: 4px 16px;
+    border-radius: 9999px;
+  }
+  
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+  
+  .description {
+    font-size: 20px;
+    color: rgba(203, 213, 225, 1);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  

@@ -1,0 +1,35 @@
+.bg-white {
+    background-color: #ffffff;
+  }
+  .border-t {
+    border-top: 1px solid #e5e7eb;
+  }
+  .max-w-7xl {
+    max-width: 80rem;
+  }
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .grid {
+    display: grid;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .gap-8 {
+    gap: 2rem;
+  }
+  /* Add other Tailwind-like classes as needed */
+  

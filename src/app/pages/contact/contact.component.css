@@ -1,0 +1,58 @@
+/* You can add more custom styles if needed. This is a basic file for now. */
+
+.bg-blue-600 {
+    background-color: #2563eb;
+  }
+  
+  .text-white {
+    color: white;
+  }
+  
+  .text-blue-100 {
+    color: #e0f2fe;
+  }
+  
+  .text-gray-700 {
+    color: #4b5563;
+  }
+  
+  .text-gray-600 {
+    color: #6b7280;
+  }
+  
+  .font-bold {
+    font-weight: 700;
+  }
+  
+  .font-medium {
+    font-weight: 500;
+  }
+  
+  .p-8 {
+    padding: 2rem;
+  }
+  
+  .mr-2 {
+    margin-right: 0.5rem;
+  }
+  
+  .ml-4 {
+    margin-left: 1rem;
+  }
+  
+  .rounded-md {
+    border-radius: 0.375rem;
+  }
+  
+  .w-full {
+    width: 100%;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .items-start {
+    align-items: flex-start;
+  }
+  

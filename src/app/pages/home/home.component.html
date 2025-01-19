@@ -1,0 +1,18 @@
+<app-hero></app-hero>
+
+<main class="max-w-7xl mx-auto px-4 py-12">
+  <app-job-section title="Fresher Hirings" to="/jobs/fresher" [jobs]="recentJobs"></app-job-section>
+  <app-job-section title="Featured Remote Jobs" to="/jobs/remote" [jobs]="recentJobs"></app-job-section>
+  <app-job-section title="Top Internships" to="/jobs/internship" [jobs]="recentJobs"></app-job-section>
+
+  <div class="bg-gray-50 rounded-xl p-8 mt-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Choose Jobs AI?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div *ngFor="let feature of features">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ feature.title }}</h3>
+        <p class="text-gray-600">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+
+</main>

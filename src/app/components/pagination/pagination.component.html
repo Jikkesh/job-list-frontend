@@ -1,0 +1,28 @@
+<div class="flex items-center justify-center space-x-2 mt-8">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+      class="p-2 rounded-md hover:bg-gray-100 disabled:opacity-50"
+    >
+      <span class="icon-chevron-left"></span>
+    </button>
+  
+    <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+      <button
+        (click)="changePage(i + 1)"
+        [class.active]="currentPage === i + 1"
+        class="px-4 py-2 rounded-md hover:bg-gray-100"
+      >
+        {{ i + 1 }}
+      </button>
+    </ng-container>
+  
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+      class="p-2 rounded-md hover:bg-gray-100 disabled:opacity-50"
+    >
+      <span class="icon-chevron-right"></span>
+    </button>
+  </div>
+  

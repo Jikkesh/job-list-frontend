@@ -1,0 +1,57 @@
+/* Utility classes are assumed to be managed with Tailwind CSS or similar. */
+.min-h-screen {
+    min-height: 100vh;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .flex-col {
+    flex-direction: column;
+  }
+  
+  .flex-1 {
+    flex: 1;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .lg\:block {
+    display: block;
+  }
+  
+  .w-64 {
+    width: 16rem;
+  }
+  
+  .p-4 {
+    padding: 1rem;
+  }
+  
+  .bg-gray-100 {
+    background-color: #f3f4f6;
+  }
+  
+  .h-full {
+    height: 100%;
+  }
+  
+  .rounded-lg {
+    border-radius: 0.5rem;
+  }
+  
+  .text-gray-400 {
+    color: #9ca3af;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
