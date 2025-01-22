@@ -1,21 +1,44 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobListService {
-  httpClient: any;
 
-  constructor() { }
+  private BASE_URL = 'jobs';  // Base URL for API
 
-  public getJobList(data:any):Observable<any>{
-    return this.httpClient.get('api/chatbot/get_response', data).pipe(tap(res => {
-      return res;
-    }), catchError(error => throwError(error)));
+  constructor(private httpClient: HttpClient) { }
+
+  // Get all jobs
+  public getAllJobs(): Observable<any> {
+    return this.httpClient.get(`${this.BASE_URL}/`).pipe(
+      catchError(error => throwError(() => error))
+    );
+  }
+
+  // Get top 5 jobs in each category
+  public getTopJobs(): Observable<any> {
+    return this.httpClient.get(`${this.BASE_URL}/top_jobs`).pipe(
+      catchError(error => throwError(() => error))
+    );
+  }
+
+  public getJobsByCategory(category: string, page: number, size: number): Observable<any> {
+    return this.httpClient.get(`${this.BASE_URL}/category/${category}?page=${page}&size=${size}`).pipe(
+      catchError(error => {
+        console.error(error);
+        throw error;
+      })
+    );
   }
 
 
-
-
+  // Get job by ID
+  public getJobById(jobId: number): Observable<any> {
+    return this.httpClient.get(`${this.BASE_URL}/${jobId}`).pipe(
+      catchError(error => throwError(() => error))
+    );
+  }
 }

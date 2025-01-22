@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy, AfterViewInit, Renderer2 } from '@angular/core';
 import { JobListComponent } from '../../components/job-list/job-list.component';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { JobSectionComponent } from '../../components/job-section/job-section.component';
 import { CommonModule } from '@angular/common';
+import { JobListService } from '../../services/job-list.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  public internship_jobs: any
+  public fresher_jobs: any
+  public remote_jobs: any;
+  public part_time_jobs: any;
+
+
   public features: any = [
     {
       title: "AI-Powered Listing",
@@ -49,8 +56,19 @@ export class HomeComponent {
   ];
 
 
-  constructor(){
+  constructor(private jobService: JobListService){}
 
+
+  ngOnInit(): void {
+    this.jobService.getTopJobs().subscribe((res) => {
+      console.log("Category Res: ",res.fresher[0])
+      this.fresher_jobs = res.fresher[0].jobs_data
+      this.internship_jobs = res.internship[0].jobs_data
+      this.remote_jobs = res.remote[0].jobs_data
+      this.part_time_jobs = res.part_time[0].jobs_data
+    })
+
+    console.log(this.fresher_jobs)
   }
 
 

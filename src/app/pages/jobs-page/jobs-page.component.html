@@ -1,9 +1,28 @@
 <div class="max-w-7xl mx-auto px-4 py-12">
-    <div class="flex">
-      <!-- Job List Component -->
-      <app-job-list [jobs]="jobs" [title]="title"></app-job-list>
-      
-      <!-- Sidebar Component -->
-      <app-sidebar></app-sidebar>
-    </div>
+  <div class="flex">
+    <!-- Job List Component -->
+    <app-job-list [jobs]="jobs" [title]="title"></app-job-list>
+
+    <!-- Sidebar Component -->
+    <app-sidebar></app-sidebar>
   </div>
+
+  <!-- Pagination Controls -->
+  <div class="mt-6 text-center">
+    <button
+      (click)="onPageChange(currentPage - 1)"
+      [disabled]="currentPage <= 1"
+      class="px-4 py-2 bg-blue-500 text-white rounded"
+    >
+      Previous
+    </button>
+    <span class="mx-4">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button
+      (click)="onPageChange(currentPage + 1)"
+      [disabled]="currentPage >= totalPages"
+      class="px-4 py-2 bg-blue-500 text-white rounded"
+    >
+      Next
+    </button>
+  </div>
+</div>

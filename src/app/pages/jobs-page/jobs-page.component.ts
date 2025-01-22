@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobListComponent } from '../../components/job-list/job-list.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { JobListService } from '../../services/job-list.service';
 
 interface Job {
   id: string;
@@ -24,43 +25,49 @@ interface Job {
 export class JobsPageComponent implements OnInit {
   title: string = '';
   type: string = 'all';
-
-  jobs: Job[] = [
-    {
-      id: '1',
-      title: 'Frontend Developer',
-      company: 'TechCorp',
-      location: 'Remote',
-      salary: '$80k - $100k',
-      type: 'remote',
-      postedDate: '2 days ago',
-      description: 'We are looking for a skilled frontend developer...',
-    },
-    {
-      id: '2',
-      title: 'Product Manager',
-      company: 'InnovateCo',
-      location: 'New York',
-      salary: '$120k - $150k',
-      type: 'full-time',
-      postedDate: '1 day ago',
-      description: 'Seeking an experienced product manager...',
-    },
-    {
-      id: '3',
-      title: 'Intern Software Engineer',
-      company: 'CodeLabs',
-      location: 'San Francisco',
-      salary: '$20/hour',
-      type: 'internship',
-      postedDate: '3 days ago',
-      description: 'Looking for an intern to join our team...',
-    },
-  ];
-
+  jobs: Job[] = [];
   filteredJobs: Job[] = [];
+  totalCount: number = 0;
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 10;
 
-  constructor(private route: ActivatedRoute) {}
+  // jobs: Job[] = [
+  //   {
+  //     id: '1',
+  //     title: 'Frontend Developer',
+  //     company: 'TechCorp',
+  //     location: 'Remote',
+  //     salary: '$80k - $100k',
+  //     type: 'remote',
+  //     postedDate: '2 days ago',
+  //     description: 'We are looking for a skilled frontend developer...',
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Product Manager',
+  //     company: 'InnovateCo',
+  //     location: 'New York',
+  //     salary: '$120k - $150k',
+  //     type: 'full-time',
+  //     postedDate: '1 day ago',
+  //     description: 'Seeking an experienced product manager...',
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'Intern Software Engineer',
+  //     company: 'CodeLabs',
+  //     location: 'San Francisco',
+  //     salary: '$20/hour',
+  //     type: 'internship',
+  //     postedDate: '3 days ago',
+  //     description: 'Looking for an intern to join our team...',
+  //   },
+  // ];
+
+  // filteredJobs: Job[] = [];
+
+  constructor(private route: ActivatedRoute, private jobService: JobListService) {}
 
   ngOnInit(): void {
     // Subscribe to route params to dynamically update content
@@ -69,21 +76,36 @@ export class JobsPageComponent implements OnInit {
       this.type = routeType && ['all', 'fresher', 'internship', 'remote', 'part-time'].includes(routeType)
         ? routeType
         : 'all';
-      this.filterJobs();
+        this.loadJobs();
     });
 
     // Call API with category with Pagination functnality
     // Call Sidebar API call to, some what matching list jobs they can visit.
   }
 
-  // Function to filter jobs based on type
-  filterJobs(): void {
-    this.filteredJobs = this.type === 'all'
-      ? this.jobs
-      : this.jobs.filter((job) => job.type.toLowerCase() === this.type);
+  loadJobs(): void {
+    this.type = this.capitalize(this.type)
+    this.jobService.getJobsByCategory(this.type, this.currentPage, this.pageSize).subscribe(
+      (data) => {
+        this.jobs = data.jobs;
+        this.totalCount = data.total_count;
+        this.totalPages = data.total_pages;
+        this.title = this.type === 'all' ? 'All Jobs' : `${this.capitalize(this.type)} Jobs`;
+        console.log("Jobs: ",this.jobs)
+        console.log("Jobs Count: ",this.totalCount)
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 
-    // Dynamically set the page title
-    this.title = this.type === 'all' ? 'All Jobs' : `${this.capitalize(this.type)} Jobs`;
+  // Function to handle page change
+  onPageChange(page: number): void {
+    if (page > 0 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadJobs();
+    }
   }
 
   // Utility function to capitalize the first letter of a string

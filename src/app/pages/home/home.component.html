@@ -1,9 +1,10 @@
 <app-hero></app-hero>
 
 <main class="max-w-7xl mx-auto px-4 py-12">
-  <app-job-section title="Fresher Hirings" to="/jobs/fresher" [jobs]="recentJobs"></app-job-section>
-  <app-job-section title="Featured Remote Jobs" to="/jobs/remote" [jobs]="recentJobs"></app-job-section>
-  <app-job-section title="Top Internships" to="/jobs/internship" [jobs]="recentJobs"></app-job-section>
+  <app-job-section title="Fresher Hirings" to="/jobs/fresher" [jobs]="fresher_jobs"></app-job-section>
+  <app-job-section title="Top Internships" to="/jobs/internship" [jobs]="internship_jobs"></app-job-section>
+  <app-job-section title="Featured Remote Jobs" to="/jobs/remote" [jobs]="remote_jobs"></app-job-section>
+  <app-job-section title="Part time Jobs" to="/jobs/part-time" [jobs]="part_time_jobs"></app-job-section>
 
   <div class="bg-gray-50 rounded-xl p-8 mt-12">
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Choose Jobs AI?</h2>
