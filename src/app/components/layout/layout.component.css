@@ -54,4 +54,10 @@
   .items-center {
     align-items: center;
   }
+
+  @media (max-width: 768px) {
+    .hidden {
+        display: none;
+    }
+}
   

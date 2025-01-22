@@ -2,12 +2,13 @@
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold text-gray-800">{{ title }}</h2>
     <a [routerLink]="to" class="text-blue-600 hover:text-blue-700 flex items-center">
-      View all 
+      View all
     </a>
   </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" *ngIf="noList">
     <!-- Job Card -->
-    <div *ngFor = "let job of jobs" class="border rounded-lg p-4 shadow-md">
+    <div *ngFor="let job of jobs" class="border rounded-lg p-4 shadow-md">
       <h3 class="text-lg font-bold">{{ job.job_role }}</h3>
       <p class="text-gray-600">{{ job.company_name }} - {{ job.city }}, {{job.state}}</p>
       <p class="text-blue-500 font-semibold">{{ job.salary_package }}</p>
@@ -16,4 +17,5 @@
       <!-- <p class="text-gray-700">{{ job.description }}</p> -->
     </div>
   </div>
+    <app-skeleton-card *ngIf="noList"></app-skeleton-card>
 </div>

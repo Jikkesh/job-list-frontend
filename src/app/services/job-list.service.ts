@@ -18,13 +18,14 @@ export class JobListService {
     );
   }
 
-  // Get top 5 jobs in each category
+  // Get initial top 5 jobs in each category
   public getTopJobs(): Observable<any> {
     return this.httpClient.get(`${this.BASE_URL}/top_jobs`).pipe(
       catchError(error => throwError(() => error))
     );
   }
 
+  // Get Job list by Category
   public getJobsByCategory(category: string, page: number, size: number): Observable<any> {
     return this.httpClient.get(`${this.BASE_URL}/category/${category}?page=${page}&size=${size}`).pipe(
       catchError(error => {
