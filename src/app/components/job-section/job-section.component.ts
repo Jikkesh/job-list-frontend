@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component';
 
@@ -10,19 +10,21 @@ import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component'
   templateUrl: './job-section.component.html',
   styleUrl: './job-section.component.css'
 })
-export class JobSectionComponent implements OnInit{
+export class JobSectionComponent implements OnChanges {
+
   @Input() title!: string;
   @Input() to!: string;
   @Input() jobs: any[] = [];
   public noList: boolean = true
-  public skeletonCount: number = 2
 
-  constructor(){}
+  constructor() { }
 
-  ngOnInit(): void {
-    if(this.jobs){
-      this.noList == false
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['jobs'] && this.jobs !== undefined) {
+      this.noList = this.jobs.length === 0; // Show skeleton if empty
     }
   }
+
+
 
 }

@@ -7,7 +7,7 @@
   
       <div class="p-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Contact Form -->
+
           <div>
             <h2 class="text-2xl font-semibold mb-6">Get in Touch</h2>
             <form class="space-y-6">
@@ -29,30 +29,6 @@
             </form>
           </div>
   
-          <!-- Contact Information -->
-          <div>
-            <h2 class="text-2xl font-semibold mb-6">Contact Information</h2>
-            <div class="space-y-6">
-              <div *ngFor="let item of contactItems" class="flex items-start">
-                <div class="bg-blue-100 p-3 rounded-full">
-                  <i [ngClass]="item.icon === 'mail' ? 'fas fa-envelope' : item.icon === 'phone' ? 'fas fa-phone' : 'fas fa-map-pin'" class="h-6 w-6 text-blue-600"></i>
-                </div>
-                <div class="ml-4">
-                  <h3 class="font-medium text-gray-800">{{ item.title }}</h3>
-                  <p class="text-gray-600">{{ item.content }}</p>
-                </div>
-              </div>
-            </div>
-  
-            <div class="mt-8">
-              <h3 class="text-lg font-semibold mb-4">Office Hours</h3>
-              <!-- <p class="text-gray-600">
-                <div *ngFor="let hour of officeHours">
-                  {{ hour }} <br />
-                </div>
-              </p> -->
-            </div>
-          </div>
         </div>
       </div>
     </div>

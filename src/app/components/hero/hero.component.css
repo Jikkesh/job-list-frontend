@@ -1,9 +1,4 @@
-.hero-container {
-    background: linear-gradient(to right, #2563EB, #1E40AF);
-    color: white;
-    padding: 80px 0;
-  }
-  
+
   .text-center {
     text-align: center;
     max-width: 1120px;
@@ -45,3 +40,6 @@
     margin: 0 auto;
   }
   
+  .hero-container{
+    height: 400px;
+  }

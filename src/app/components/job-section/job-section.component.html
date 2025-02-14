@@ -6,16 +6,56 @@
     </a>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" *ngIf="noList">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" *ngIf="!noList">
     <!-- Job Card -->
-    <div *ngFor="let job of jobs" class="border rounded-lg p-4 shadow-md">
+
+    <!-- Card Before  -->
+
+    <!-- <div *ngFor="let job of jobs" class="border rounded-lg p-4 shadow-md">
       <h3 class="text-lg font-bold">{{ job.job_role }}</h3>
       <p class="text-gray-600">{{ job.company_name }} - {{ job.city }}, {{job.state}}</p>
-      <p class="text-blue-500 font-semibold">{{ job.salary_package }}</p>
-      <!-- <p class="text-gray-500 text-sm">{{ job.type }}</p>
-      <p class="text-gray-400 text-xs">{{ job.postedDate }}</p> -->
-      <!-- <p class="text-gray-700">{{ job.description }}</p> -->
+      <p class="text-gray-600 font-semibold">{{ job.salary_package }}</p>
+      <p class="text-gray-500 text-sm">{{ job.type }}</p>
+      <p class="text-gray-400 text-xs">{{ job.postedDate }}</p> 
+      <p class="text-gray-700">{{ job.description }}</p> 
+    </div> -->
+
+    <!-- Card we should use now -->
+
+    <div *ngFor="let job of jobs"
+      class="cursor-pointer group relative flex flex-col my-6 bg-white shadow-sm border border-black rounded-lg w-96 hover:shadow-lg transition-shadow duration-300">
+      <div class="relative h-36 m-2.5 overflow-hidden text-white rounded-md">
+        <img
+          class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-110 w-full h-full object-cover"
+          [src]="job.company_logo || 'assets/hiring.png'" alt="{{ job.company_name }}" />
+      </div>
+
+      <div class="p-4">
+        <h6 class="mb-2 text-slate-800 text-xl font-semibold">
+          {{ job.job_role }}
+        </h6>
+        <p class="text-slate-600 leading-normal font-light">
+          {{ job.company_name }} - {{ job.city }}, {{ job.state }}
+        </p>
+        <p class="text-gray-600 font-semibold">
+          {{ job.salary_package }}
+        </p>
+      </div>
+
+      <!-- Apply Button -->
+      <div class="px-4 pb-4 pt-0 mt-2">
+        <button
+          class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          type="button">
+          Apply Now
+        </button>
+
+      </div>
     </div>
+
+
+
   </div>
-    <app-skeleton-card *ngIf="noList"></app-skeleton-card>
+
+  <app-skeleton-card *ngIf="noList"></app-skeleton-card>
 </div>
