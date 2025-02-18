@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component';
+import { JobListService } from '../../services/job-list.service';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-job-section',
@@ -10,21 +12,47 @@ import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component'
   templateUrl: './job-section.component.html',
   styleUrl: './job-section.component.css'
 })
-export class JobSectionComponent implements OnChanges {
-
+export class JobSectionComponent implements  OnInit {
   @Input() title!: string;
   @Input() to!: string;
-  @Input() jobs: any[] = [];
-  public noList: boolean = true
+  @Input() category!: string;
+  public jobImages: { [key: string]: SafeUrl } = {}; 
 
-  constructor() { }
+  public noList: boolean = true;
+  public jobs : any[] = []
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['jobs'] && this.jobs !== undefined) {
-      this.noList = this.jobs.length === 0; // Show skeleton if empty
-    }
+  constructor(private jobListService : JobListService) {}
+
+
+  ngOnInit(): void {
+    this.loadJobs()
   }
 
+  private updateJobListState(): void {
+    this.noList = this.jobs.length === 0;
+  }
+
+  private loadJobs(): void {
+    this.jobListService.getJobsByCategory(this.category, 1, 5).subscribe(
+      (data) => {
+        this.jobs = data.jobs; 
+        this.updateJobListState();
+        this.fetchJobImages();
+      },
+      (error) => {
+        console.error(error); 
+      }
+    );
+  }
+
+  private fetchJobImages(): void {
+    this.jobs.forEach((job) => {
+      this.jobListService.getJobImage(job.id).subscribe(blob => {
+        const objectURL = URL.createObjectURL(blob);
+        this.jobImages[job.id] = objectURL;
+      });
+    });
+  }
 
 
 }

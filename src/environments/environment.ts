@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:8003',
+    apiUrl: 'https://jobsai-server.onrender.com',
     featureFlag: true
 };
