@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { JobListService } from '../../services/job-list.service';
+import { JobImageCacheService } from '../../services/job-image-cache.service';
 
 @Component({
   selector: 'app-card',
@@ -23,21 +24,9 @@ export class CardComponent implements OnInit {
 
   public logoUrl: string = 'assets/hiring.png';  // Default logo
 
-  constructor(private jobService: JobListService){}
+  constructor(private jobService: JobListService, private jobImageCache : JobImageCacheService){}
 
   ngOnInit(): void {
-    console.log('CardComponent Initialized with:', {
-      id: this.id,
-      title: this.title,
-      company: this.company,
-      companyLogo: this.companyLogo,
-      location: this.location,
-      salary: this.salary,
-      type: this.type,
-      postedDate: this.postedDate,
-      description: this.description
-    });
-
     this.loadCompanyLogo();
   }
 
@@ -47,7 +36,7 @@ export class CardComponent implements OnInit {
     if (cachedImage) {
       this.logoUrl = cachedImage;
     } else {
-      this.fetchCompanyLogo();
+      this.fetchImageCache();
     }
   }
 
@@ -60,6 +49,18 @@ export class CardComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching company logo:', error);
+      }
+    );
+  }
+
+  private fetchImageCache(): void {
+    this.jobImageCache.getImage(this.id).then(
+      (base64) => {
+        this.logoUrl = base64;
+      },
+      (error) => {
+        console.error('Error fetching company logo:', error);
+        this.logoUrl = 'assets/hiring.png';
       }
     );
   }

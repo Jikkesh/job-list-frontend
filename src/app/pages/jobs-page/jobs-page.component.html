@@ -1,27 +1,49 @@
-<div class="max-w-7xl mx-auto px-4 py-12">
-  <div class="flex">
-    <!-- Job List Component -->
+<div class="mx-auto px-4 py-12">
+  <!-- Job List -->
+  <div class="flex justify-center">
     <app-job-list [jobs]="jobs" [title]="title"></app-job-list>
-
-    <!-- Sidebar Component -->
-    <!-- <app-sidebar></app-sidebar> -->
   </div>
 
   <!-- Pagination Controls -->
-  <div class="mt-6 text-center">
-    <button
-      (click)="onPageChange(currentPage - 1)"
-      [disabled]="currentPage <= 1"
-      class="px-4 py-2 bg-blue-500 text-white rounded"
-    >
-      Previous
-    </button>
-    <span class="mx-4">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button
-      (click)="onPageChange(currentPage + 1)"
-      [disabled]="currentPage >= totalPages"
-      class="px-4 py-2 bg-blue-500 text-white rounded"
-    >
-      Next
-    </button>
+  <nav aria-label="Page navigation" class="mt-8 flex justify-center">
+    <ul class="inline-flex -space-x-px text-base h-10">
+      <!-- Previous Button -->
+      <li>
+        <button
+          (click)="onPageChange(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg
+                     hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Previous
+        </button>
+      </li>
+
+      <!-- Page Numbers -->
+      <li *ngFor="let page of getPages()">
+        <button
+          (click)="onPageChange(page)"
+          [ngClass]="{
+            'bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700': page === currentPage,
+            'bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700': page !== currentPage
+          }"
+          class="flex items-center justify-center px-4 h-10 leading-tight border border-gray-300"
+        >
+          {{ page }}
+        </button>
+      </li>
+
+      <!-- Next Button -->
+      <li>
+        <button
+          (click)="onPageChange(currentPage + 1)"
+          [disabled]="currentPage === totalPages"
+          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg
+                     hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </nav>
 </div>

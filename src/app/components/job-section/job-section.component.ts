@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component';
 import { JobListService } from '../../services/job-list.service';
 import { SafeUrl } from '@angular/platform-browser';
+import { JobImageCacheService } from '../../services/job-image-cache.service';
 
 @Component({
   selector: 'app-job-section',
@@ -21,7 +22,7 @@ export class JobSectionComponent implements  OnInit {
   public noList: boolean = true;
   public jobs : any[] = []
 
-  constructor(private jobListService : JobListService) {}
+  constructor(private jobListService : JobListService,private jobImageCache : JobImageCacheService) {}
 
 
   ngOnInit(): void {
@@ -47,12 +48,18 @@ export class JobSectionComponent implements  OnInit {
 
   private fetchJobImages(): void {
     this.jobs.forEach((job) => {
-      this.jobListService.getJobImage(job.id).subscribe(blob => {
-        const objectURL = URL.createObjectURL(blob);
-        this.jobImages[job.id] = objectURL;
-      });
+      this.jobImageCache.getImage(job.id).then(
+        (base64) => {
+          this.jobImages[job.id] = base64;
+        },
+        (error) => {
+          console.error('Error fetching company logo:', error);
+          this.jobImages[job.id] = 'assets/hiring.png';
+        }
+      );
     });
   }
+
 
 
 }
