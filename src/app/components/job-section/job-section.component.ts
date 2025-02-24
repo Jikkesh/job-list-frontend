@@ -34,7 +34,7 @@ export class JobSectionComponent implements  OnInit {
   }
 
   private loadJobs(): void {
-    this.jobListService.getJobsByCategory(this.category, 1, 5).subscribe(
+    this.jobListService.getJobsByCategory(this.category, 1, 6).subscribe(
       (data) => {
         this.jobs = data.jobs; 
         this.updateJobListState();

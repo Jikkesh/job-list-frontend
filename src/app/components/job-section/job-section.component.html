@@ -1,41 +1,42 @@
 <div class="mb-12">
   <div class="flex justify-between items-center mb-6">
-    <h2 class="text-2xl font-bold text-gray-800">{{ title }}</h2>
-    <a [routerLink]="to" class="text-blue-600 hover:text-blue-700 flex items-center">
+    <h2 class="text-xl font-bold text-gray-800">{{ title }}</h2>
+    <a [routerLink]="to" class="text-blue-600 hover:text-blue-700 flex items-center text-sm">
       View all
     </a>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" *ngIf="!noList">
-    <!-- Job Card -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" *ngIf="!noList">
+    <!-- Job Cards -->
 
-    <div *ngFor="let job of jobs" class="cursor-pointer group relative flex flex-col my-6 bg-white shadow-sm border border-black rounded-lg w-80 hover:shadow-lg transition-shadow duration-300">
-     <a [routerLink]="['/job', job.id]"> 
-      <div class="relative h-36 m-2.5 overflow-hidden text-white rounded-md">
-        <img
-          class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-105 w-full h-full object-cover"
-          [src]="jobImages[job.id] || 'assets/hiring.png'" 
-          alt="{{ job.company_name }}" />
-      </div>
+    <div *ngFor="let job of jobs" class="cursor-pointer group relative flex flex-col bg-white shadow-sm border border-gray-300 rounded-lg w-64 hover:shadow-lg transition-shadow duration-300">
+      <a [routerLink]="['/job', job.id]">
+        <div class="relative h-28 mx-2.5 mt-2.5 overflow-hidden text-white rounded-md">
+          <img
+            class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-105 w-full h-full object-cover"
+            [src]="jobImages[job.id] || 'assets/hiring.png'" 
+            alt="{{ job.company_name }}" />
+        </div>
 
-      <div class="p-4">
-        <h6 class="mb-2 text-slate-800 text-xl font-semibold">
-          {{ job.job_role }}
-        </h6>
-        <p class="text-slate-600 leading-normal font-light">
-          {{ job.company_name }} - {{ job.city }}, {{ job.state }}
-        </p>
-        <p class="text-gray-600 font-semibold">
-          Salary: {{ job.salary_package }}
-        </p>
-      </div>
+        <div class="p-3">
+          <h6 class="mb-1 text-slate-800 text-lg font-semibold">
+            {{ job.job_role }}
+          </h6>
+          <p class="text-slate-600 text-sm leading-normal font-light">
+            {{ job.company_name }} - {{ job.city }}, {{ job.state }}
+          </p>
+          <p class="text-gray-600 text-sm font-semibold">
+            Salary: {{ job.salary_package }}
+          </p>
+        </div>
 
-      <!-- Apply Button -->
-      <div class="px-4 pb-4 pt-0 mt-2">
-        <button [routerLink]="['/job', job.id]" class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> Apply Now </button>
-      </div>
-    </a>
-
+        <!-- Apply Button -->
+        <div class="px-3 pb-3 pt-0 mt-1">
+          <button [routerLink]="['/job', job.id]" class="rounded-md bg-slate-800 py-1.5 px-3 text-center text-xs text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+            Apply Now
+          </button>
+        </div>
+      </a>
     </div>
 
   </div>

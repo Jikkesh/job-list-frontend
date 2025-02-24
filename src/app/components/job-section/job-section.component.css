@@ -1,0 +1,8 @@
+.container {
+    max-width: 500px !important; /* Reduced from 1200px */
+    margin: 20px auto;
+    padding: 15px;    /* Slightly reduced padding */
+    background: #fff;
+    border-radius: 6px;  /* Smaller rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtler shadow */
+}
