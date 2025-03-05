@@ -1,4 +1,5 @@
 <div class="mb-12">
+
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-xl font-bold text-gray-800">{{ title }}</h2>
     <a [routerLink]="to" class="text-blue-600 hover:text-blue-700 flex items-center text-sm">
@@ -6,39 +7,56 @@
     </a>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" *ngIf="!noList">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 sm:px-0" *ngIf="!noList">
     <!-- Job Cards -->
-
-    <div *ngFor="let job of jobs" class="cursor-pointer group relative flex flex-col bg-white shadow-sm border border-gray-300 rounded-lg w-64 hover:shadow-lg transition-shadow duration-300">
-      <a [routerLink]="['/job', job.id]">
-        <div class="relative h-28 mx-2.5 mt-2.5 overflow-hidden text-white rounded-md">
+    <div *ngFor="let job of jobs" class="flex flex-1 flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 ease-out group cursor-pointer min-h-[300px]">
+      <a [routerLink]="['/job', job.id]" class="flex flex-col h-full">
+        <!-- Image Section -->
+        <div class="relative h-40 overflow-hidden">
           <img
-            class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-105 w-full h-full object-cover"
-            [src]="jobImages[job.id] || 'assets/hiring.png'" 
-            alt="{{ job.company_name }}" />
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            [src]="jobImages[job.id] || 'assets/hiring.png'"
+            alt="{{ job.company_name }}"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-
-        <div class="p-3">
-          <h6 class="mb-1 text-slate-800 text-lg font-semibold">
-            {{ job.job_role }}
-          </h6>
-          <p class="text-slate-600 text-sm leading-normal font-light">
-            {{ job.company_name }} - {{ job.city }}, {{ job.state }}
-          </p>
-          <p class="text-gray-600 text-sm font-semibold">
-            Salary: {{ job.salary_package }}
-          </p>
-        </div>
-
-        <!-- Apply Button -->
-        <div class="px-3 pb-3 pt-0 mt-1">
-          <button [routerLink]="['/job', job.id]" class="rounded-md bg-slate-800 py-1.5 px-3 text-center text-xs text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-            Apply Now
-          </button>
+  
+        <!-- Content Section -->
+        <div class="p-4 flex flex-col flex-grow space-y-3">
+          <div class="space-y-2">
+            <h6 class="text-xl font-bold text-gray-900 line-clamp-2">
+              {{ job.job_role }}
+            </h6>
+            <div class="flex items-center space-x-2">
+              <span class="inline-block w-2 h-2 bg-blue-600 rounded-full"></span>
+              <p class="text-sm text-gray-600 font-medium line-clamp-1">
+                {{ job.company_name }}
+              </p>
+            </div>
+            <p class="text-sm text-gray-500">
+              {{ job.city }}, {{ job.state }}
+            </p>
+          </div>
+  
+          <div class="mt-2">
+            <p class="text-sm font-semibold text-blue-600">
+              {{ job.salary_package }}
+            </p>
+          </div>
         </div>
       </a>
+  
+      <!-- Apply Button -->
+      <div class="p-4 pt-0 mt-auto">
+        <button
+          [routerLink]="['/job', job.id]"
+          class="w-full py-2.5 px-4 text-sm font-medium rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        >
+          Apply Now
+        </button>
+      </div>
     </div>
-
   </div>
+
   <app-skeleton-card *ngIf="noList"></app-skeleton-card>
 </div>

@@ -1,35 +1,53 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  styleUrls: ['./contact.component.css']
 })
-export class ContactComponent {
-  contactItems = [
-    {
-      icon: 'mail',
-      title: 'Email',
-      content: 'support@offcampusjobs.com',
-    },
-    {
-      icon: 'phone',
-      title: 'Phone',
-      content: '+1 (555) 123-4567',
-    },
-    {
-      icon: 'map-pin',
-      title: 'Address',
-      content: '123 Job Street, Career City, 12345',
-    }
-  ];
+export class ContactComponent implements OnInit {
+  contactForm: FormGroup;
+  loading = false;
+  success = false;
+  error = '';
 
-  officeHours = [
-    'Monday - Friday: 9:00 AM - 6:00 PM',
-    'Saturday: 10:00 AM - 2:00 PM',
-    'Sunday: Closed'
-  ];
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    // Initialize the form with controls and validators
+    this.contactForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      message: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void { }
+
+  onSubmit() {
+    if (this.contactForm.invalid) return;
+
+    this.loading = true;
+    this.error = '';
+    this.success = false;
+
+    const formData = this.contactForm.value;
+
+    this.userService.sendMessage(formData).subscribe(
+      () => {
+        this.success = true;
+        this.loading = false;
+        this.contactForm.reset();
+        setTimeout(() => this.success = false, 5000);
+      },
+      (error) => {
+        this.error = 'Failed to send message. Please try again later.';
+        this.loading = false;
+        console.error('Contact form error:', error);
+      }
+    );
+  }
 }
