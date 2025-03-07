@@ -3,7 +3,8 @@
 
     <!-- Banner Image with Gradient Overlay -->
     <div class="relative">
-      <img class="w-full h-64 md:h-80 object-cover" [src]="jobImages || 'assets/hiring.png'" alt="{{ job.job_role }} Banner" />
+      <img class="w-full h-64 md:h-80 object-cover" [src]="jobImages || 'assets/hiring.png'"
+        alt="{{ job?.job_role }} Banner" />
       <div class="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent"></div>
     </div>
 
@@ -13,38 +14,42 @@
       <header class="mb-10 text-center">
         <div class="mb-6">
           <span class="inline-block bg-blue-100 text-blue-800 px-4 py-1 rounded-full text-sm font-medium">
-            {{ job.category }}
+            {{ job?.category }}
           </span>
         </div>
         <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 leading-tight">
-          {{ job.job_role }}
+          {{ job?.job_role }}
         </h1>
         <div class="flex items-center justify-center space-x-4 text-gray-600">
           <span class="flex items-center">
             <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+              <path
+                d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
             </svg>
-            {{ job.company_name }}
+            {{ job?.company_name }}
           </span>
           <span class="flex items-center">
             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            {{ job.city }}, {{ job.state }}
+            {{ job?.city }}, {{ job?.state }}
           </span>
         </div>
       </header>
 
-        <!-- Job Details -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <app-detail-item class="bg-gray-50 p-4 rounded-lg"  [icon]="'building'" [text]="job.company_name"></app-detail-item>
-          <app-detail-item class="bg-gray-50 p-4 rounded-lg"  [icon]="'map-pin'" [text]="job.city + ', ' + job.state"></app-detail-item>
-          <app-detail-item class="bg-gray-50 p-4 rounded-lg"  [icon]="'currency'" [text]="job.salary_package"></app-detail-item>
-          <app-detail-item class="bg-gray-50 p-4 rounded-lg"  [icon]="'clock'" [text]="job.category"></app-detail-item>
-        </div>
-
-  
+      <!-- Job Details -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <app-detail-item class="bg-gray-50 p-4 rounded-lg" [icon]="'building'"
+          [text]="job?.company_name"></app-detail-item>
+        <app-detail-item class="bg-gray-50 p-4 rounded-lg" [icon]="'map-pin'"
+          [text]="job?.city + ', ' + job?.state"></app-detail-item>
+        <app-detail-item class="bg-gray-50 p-4 rounded-lg" [icon]="'currency'"
+          [text]="job?.salary_package"></app-detail-item>
+        <app-detail-item class="bg-gray-50 p-4 rounded-lg" [icon]="'clock'" [text]="job?.category"></app-detail-item>
+      </div>
 
       <!-- Article Body with Unique Subheadings -->
       <div class="prose max-w-none text-gray-700 leading-relaxed">
@@ -58,13 +63,13 @@
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
           Qualifications
         </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job.qualification  || '') | markdown | async"></div>
+        <div class="my-6 space-y-4" [innerHTML]="(job?.qualification || '') | markdown | async"></div>
 
         <!-- Key Responsibilities -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
           Key Responsibilities
         </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job?.key_responsibilty || '') | markdown | async"></div>
+        <div class="my-6 space-y-4" [innerHTML]="(job?.key_responsibility || '') | markdown | async"></div>
 
         <!-- About Company -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
@@ -72,25 +77,67 @@
         </h2>
         <div class="my-6 space-y-4" [innerHTML]="(job?.about_company || '') | markdown | async"></div>
 
+        <!-- How to Apply Section -->
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
+          How to Apply
+        </h2>
+        <div class="my-6 space-y-4">
+          <p>
+            Read the job description and all the headings carefully. Once you have a clear understanding of the role,
+            click on the "Apply Now" button below. Ensure that you upload a perfect resume with all the relevant
+            details, and then proceed to apply for the role.
+          </p>
+        </div>
+
         <!-- Selection Process -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
-          Selection Process
+          Selection Process <span class="text-sm text-gray-500">(Note: These are predicted steps and may change based on
+            the recruitment process.)</span>
         </h2>
         <div class="my-6 space-y-4" [innerHTML]="(job?.selection_process || '') | markdown | async">
           <p>{{ job.selection_process }}</p>
         </div>
 
+
+
       </div>
 
       <!-- Apply Button -->
       <div class="mt-12 text-center">
-        <a [href]="job.website_link" target="_blank" 
-           class="inline-block w-full md:w-auto bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold 
+        <a [href]="job?.website_link" target="_blank" class="inline-block w-full md:w-auto bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold 
                   transition-all duration-200 transform hover:bg-blue-700 hover:scale-105 hover:shadow-lg
                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
           Apply Now →
         </a>
       </div>
+
+      <!-- Additional Job Metrics - Revised Version -->
+      <div class="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-gray-600">
+          <!-- Posted Date -->
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="text-sm font-medium">
+              Posted on {{ date_posted ? (date_posted | date:'mediumDate') : 'N/A' }}
+            </span>
+          </div>
+
+          <!-- Applicants Count -->
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="text-sm font-medium">
+              {{ total_applied || 0 }} {{ total_applied === 1 ? 'applicant' : 'applicants' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

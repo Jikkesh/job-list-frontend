@@ -9,6 +9,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './detail-item.component.css'
 })
 export class DetailItemComponent {
-  @Input() icon: string = '';
-  @Input() text: string = '';
+  @Input() icon: string | null = '';
+  @Input() text: string | null = '';
 }

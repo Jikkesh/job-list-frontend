@@ -17,6 +17,8 @@ import { JobImageCacheService } from '../../services/job-image-cache.service';
 export class JobViewComponent implements OnInit  {
   job: any = null;
   jobImages : any = null;
+  total_applied: number = 55;
+  date_posted: string = "2021-07-01";
 
   constructor(private route: ActivatedRoute, private jobImageCache : JobImageCacheService,private joblistService : JobListService) { }
 
