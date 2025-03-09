@@ -7,11 +7,10 @@ import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component'
 
 
 @Component({
-  selector: 'app-job-list',
-  standalone: true,
-  imports: [CardComponent, PaginationComponent, CommonModule, RouterModule, SkeletonCardComponent],
-  templateUrl: './job-list.component.html',
-  styleUrl: './job-list.component.css'
+    selector: 'app-job-list',
+    imports: [CardComponent, PaginationComponent, CommonModule, RouterModule, SkeletonCardComponent],
+    templateUrl: './job-list.component.html',
+    styleUrl: './job-list.component.css'
 })
 export class JobListComponent implements OnInit,  OnChanges {
   @Input() jobs: any;

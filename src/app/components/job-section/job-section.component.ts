@@ -6,11 +6,10 @@ import { JobListService } from '../../services/job-list.service';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-job-section',
-  standalone: true,
-  imports: [CommonModule, RouterModule, SkeletonCardComponent],
-  templateUrl: './job-section.component.html',
-  styleUrls: ['./job-section.component.css']
+    selector: 'app-job-section',
+    imports: [CommonModule, RouterModule, SkeletonCardComponent],
+    templateUrl: './job-section.component.html',
+    styleUrls: ['./job-section.component.css']
 })
 export class JobSectionComponent implements OnInit {
   @Input() title!: string;

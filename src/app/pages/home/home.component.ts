@@ -7,11 +7,10 @@ import { JobListService } from '../../services/job-list.service';
 import { map, Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [JobListComponent, HeroComponent, JobSectionComponent, CommonModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    imports: [JobListComponent, HeroComponent, JobSectionComponent, CommonModule],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
 

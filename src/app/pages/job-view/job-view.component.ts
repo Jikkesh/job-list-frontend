@@ -7,11 +7,10 @@ import { MarkdownModule } from 'ngx-markdown';
 import { JobListService } from '../../services/job-list.service';
 
 @Component({
-  selector: 'app-job-view',
-  standalone: true,
-  imports: [CommonModule, FormComponent, DetailItemComponent, MarkdownModule],
-  templateUrl: './job-view.component.html',
-  styleUrls: ['./job-view.component.css']
+    selector: 'app-job-view',
+    imports: [CommonModule, FormComponent, DetailItemComponent, MarkdownModule],
+    templateUrl: './job-view.component.html',
+    styleUrls: ['./job-view.component.css']
 })
 export class JobViewComponent implements OnInit {
   job: any = null;
