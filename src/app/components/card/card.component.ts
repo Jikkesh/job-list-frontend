@@ -3,10 +3,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { JobListService } from '../../services/job-list.service';
 
 @Component({
-    selector: 'app-card',
-    imports: [CommonModule],
-    templateUrl: './card.component.html',
-    styleUrl: './card.component.css'
+  selector: 'app-card',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './card.component.html',
+  styleUrl: './card.component.css'
 })
 export class CardComponent implements OnInit {
   @Input() id!: string;

@@ -4,10 +4,11 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { UserService } from '../../services/user.service';
 
 @Component({
-    selector: 'app-contact',
-    imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './contact.component.html',
-    styleUrls: ['./contact.component.css']
+  selector: 'app-contact',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
   contactForm: FormGroup;

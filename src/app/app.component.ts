@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
-    selector: 'app-root',
-    imports: [CommonModule, RouterOutlet, LayoutComponent, NavbarComponent, RouterModule],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css'
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule,RouterOutlet,LayoutComponent,NavbarComponent,RouterModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'BaseApp';

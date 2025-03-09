@@ -17,10 +17,11 @@ interface Job {
 }
 
 @Component({
-    selector: 'app-jobs-page',
-    imports: [JobListComponent, SidebarComponent, CommonModule],
-    templateUrl: './jobs-page.component.html',
-    styleUrls: ['./jobs-page.component.css']
+  selector: 'app-jobs-page',
+  standalone: true,
+  imports: [JobListComponent, SidebarComponent,CommonModule],
+  templateUrl: './jobs-page.component.html',
+  styleUrls: ['./jobs-page.component.css'],
 })
 export class JobsPageComponent implements OnInit {
   title: string = '';
