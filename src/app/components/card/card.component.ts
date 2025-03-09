@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { JobListService } from '../../services/job-list.service';
-import { JobImageCacheService } from '../../services/job-image-cache.service';
 
 @Component({
   selector: 'app-card',
@@ -14,7 +13,7 @@ export class CardComponent implements OnInit {
   @Input() id!: string;
   @Input() title!: string;
   @Input() company!: string;
-  @Input() companyLogo!: string;  
+  @Input() companyLogo!: string;
   @Input() location!: string;
   @Input() salary!: string;
   @Input() type!: string;
@@ -23,49 +22,38 @@ export class CardComponent implements OnInit {
 
 
   public logoUrl: string = 'assets/hiring.png';  // Default logo
+  jobImages: string | null = null;
 
-  constructor(private jobService: JobListService, private jobImageCache : JobImageCacheService){}
+  constructor(private jobService: JobListService, private joblistService: JobListService) { }
 
   ngOnInit(): void {
-    this.loadCompanyLogo();
-  }
-
-  private loadCompanyLogo(): void {
-    const cachedImage = localStorage.getItem(`companyLogo_${this.id}`);
-
-    if (cachedImage) {
-      this.logoUrl = cachedImage;
-    } else {
-      this.fetchImageCache();
+    if (this.id) {
+      this.fetchJobImage(this.id)
     }
   }
 
-  private fetchCompanyLogo(): void {
-    this.jobService.getJobImage(this.id).subscribe(
-      (blob) => {
-        const imageUrl = URL.createObjectURL(blob);
-        localStorage.setItem(`jobImage_${this.id}`, imageUrl);
-        this.logoUrl = imageUrl;
-      },
-      (error) => {
-        console.error('Error fetching company logo:', error);
-      }
-    );
-  }
 
-  private fetchImageCache(): void {
-    this.jobImageCache.getImage(this.id).then(
-      (base64) => {
-        this.logoUrl = base64;
+  /**
+     * Fetch the job image as a Blob, convert to a local URL.
+     * If it fails, use a fallback image.
+     */
+  private fetchJobImage(jobId: string): void {
+    this.joblistService.getJobImage(jobId).subscribe({
+      next: (blob: Blob) => {
+        // Convert Blob to an object URL
+        console.log('Blob:', blob);
+        const objectURL = URL.createObjectURL(blob);
+        this.jobImages = objectURL;
       },
-      (error) => {
-        console.error('Error fetching company logo:', error);
-        this.logoUrl = 'assets/hiring.png';
+      error: (err) => {
+        console.error('Error fetching job image:', err);
+        this.jobImages = 'assets/hiring.png';
       }
-    );
+    });
   }
 
 
 
-  
+
+
 }

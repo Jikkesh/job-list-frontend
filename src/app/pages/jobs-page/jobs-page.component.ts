@@ -58,9 +58,6 @@ export class JobsPageComponent implements OnInit {
         this.totalPages = Math.ceil(data.totalCount / this.pageSize);
 
         this.title = this.type === 'all' ? 'All Jobs' : `${this.capitalize(this.type)} Jobs`;
-
-        console.log('Jobs Count:', this.totalCount);
-        console.log('Total Pages:', this.totalPages);
       },
       (error) => {
         console.error(error);

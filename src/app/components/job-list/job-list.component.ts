@@ -33,7 +33,6 @@ export class JobListComponent implements OnInit,  OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.updateJobProfile()
-    console.log("From Jobs changes: ", this.jobs)
   }
 
 

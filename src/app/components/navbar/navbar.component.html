@@ -1,29 +1,82 @@
 <nav class="bg-white shadow-lg">
   <div class="max-w-7xl mx-auto px-4">
-    <div class="flex justify-between h-16">
+    <div class="flex justify-between h-16 items-center">
+      
       <!-- Logo Section -->
       <div class="flex items-center">
         <a routerLink="/" class="flex items-center space-x-2 cursor-pointer">
-
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+          <!-- Logo Icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"
+            />
           </svg>
+          <!-- Logo Text -->
           <span class="text-xl font-bold text-gray-800">Jobs AI</span>
         </a>
       </div>
 
-      <!-- Navigation Links -->
-      <div class="hidden md:flex items-center space-x-4">
+      <!-- Desktop Navigation Links -->
+      <div *ngIf="isDesktop" class="flex items-center space-x-4">
         <a
           *ngFor="let item of navItems"
           [routerLink]="item.link"
           routerLinkActive="text-blue-600 bg-blue-50"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+          class="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 
+                 hover:text-blue-600 hover:bg-blue-50 transition-colors"
         >
           <span>{{ item.name }}</span>
         </a>
       </div>
+
+      <!-- Mobile menu button (hamburger icon) -->
+      <div *ngIf="!isDesktop" class="flex items-center">
+        <button
+          type="button"
+          class="text-gray-700 hover:text-blue-600 focus:outline-none"
+          (click)="isOpen = !isOpen"
+        >
+          <!-- Icon changes based on isOpen state -->
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round"
+               stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+            <!-- "Hamburger" icon when closed; "X" icon when open -->
+            <path
+              [attr.d]="
+                isOpen
+                  ? 'M6 18L18 6M6 6l12 12'
+                  : 'M4 6h16M4 12h16M4 18h16'
+              "
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Mobile Nav Menu (collapsible) -->
+  <div *ngIf="!isDesktop && isOpen" class="px-2 pt-2 pb-3 space-y-1">
+    <a
+      *ngFor="let item of navItems"
+      [routerLink]="item.link"
+      routerLinkActive="text-blue-600 bg-blue-50"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 
+             hover:text-blue-600 hover:bg-blue-50 transition-colors"
+      (click)="closeMobileMenu()"  
+    >
+      {{ item.name }}
+    </a>
+  </div>
+
+
 </nav>

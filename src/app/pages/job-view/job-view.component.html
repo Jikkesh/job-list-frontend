@@ -52,7 +52,8 @@
       </div>
 
       <!-- Article Body with Unique Subheadings -->
-      <div class="prose max-w-none text-gray-700 leading-relaxed">
+      <div class="prose max-w-none text-gray-700 leading-relaxed list-disc ml-5">
+
         <!-- Job Description -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
           Job Description
@@ -69,7 +70,7 @@
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
           Key Responsibilities
         </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job?.key_responsibility || '') | markdown | async"></div>
+        <div class="my-6 space-y-4" [innerHTML]="(job?.key_responsibilty || '') | markdown | async"></div>
 
         <!-- About Company -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
@@ -99,7 +100,6 @@
         </div>
 
 
-
       </div>
 
       <!-- Apply Button -->
@@ -121,7 +121,7 @@
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span class="text-sm font-medium">
-              Posted on {{ date_posted ? (date_posted | date:'mediumDate') : 'N/A' }}
+              Posted on {{ job?.date_posted ? (job.date_posted | date:'mediumDate') : 'N/A' }}
             </span>
           </div>
 
@@ -132,7 +132,7 @@
                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
             <span class="text-sm font-medium">
-              {{ total_applied || 0 }} {{ total_applied === 1 ? 'applicant' : 'applicants' }}
+              {{ total_applied || 0 }} + Applied
             </span>
           </div>
         </div>
