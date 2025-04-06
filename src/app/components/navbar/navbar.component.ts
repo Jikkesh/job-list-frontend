@@ -14,10 +14,10 @@ export class NavbarComponent implements OnInit{
   isDesktop = false;
   navItems = [
     { name: 'Home', link: '/', icon: 'home' },
-    { name: 'Freshers Jobs', link: '/jobs/fresher', icon: 'school' },
+    { name: 'Freshers', link: '/jobs/fresher', icon: 'school' },
+    { name: 'Experienced', link: '/jobs/experienced', icon: 'timer' },
     { name: 'Internships', link: '/jobs/internship', icon: 'work' },
-    { name: 'Remote Jobs', link: '/jobs/remote', icon: 'laptop' },
-    { name: 'Part-Time Jobs', link: '/jobs/part-time', icon: 'timer' },
+    { name: 'Remote', link: '/jobs/remote', icon: 'laptop' },
     { name: 'Contact', link: '/contact', icon: 'message' }
   ];
 

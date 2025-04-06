@@ -11,7 +11,7 @@ interface Job {
   company_name: string;
   location: string;
   salary: string;
-  type: string;  // 'fresher', 'internship', 'remote', 'part-time', or 'full-time'
+  type: string;  // 'fresher', 'internship', 'remote', 'experienced', or 'full-time'
   postedDate: string;
   description: string;
 }
@@ -19,7 +19,7 @@ interface Job {
 @Component({
   selector: 'app-jobs-page',
   standalone: true,
-  imports: [JobListComponent, SidebarComponent,CommonModule],
+  imports: [JobListComponent, SidebarComponent, CommonModule],
   templateUrl: './jobs-page.component.html',
   styleUrls: ['./jobs-page.component.css'],
 })
@@ -32,14 +32,14 @@ export class JobsPageComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 10; // Adjust as needed
 
-  constructor(private route: ActivatedRoute, private jobService: JobListService) {}
+  constructor(private route: ActivatedRoute, private jobService: JobListService) { }
 
   ngOnInit(): void {
     // Subscribe to route params to dynamically update content
     this.route.paramMap.subscribe((params) => {
       const routeType = params.get('type')?.toLowerCase();
       this.type =
-        routeType && ['all', 'fresher', 'internship', 'remote', 'part-time', 'full-time'].includes(routeType)
+        routeType && ['all', 'fresher', 'internship', 'remote', 'experienced', 'full-time'].includes(routeType)
           ? routeType
           : 'all';
       this.currentPage = 1; // Reset to page 1 on type change
