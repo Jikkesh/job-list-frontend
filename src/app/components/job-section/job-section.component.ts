@@ -34,7 +34,7 @@ export class JobSectionComponent implements OnInit {
 
   private loadJobs(): void {
     // Example: fetch 6 jobs of a certain category
-    this.jobListService.getJobsByCategory(this.category, 1, 6).subscribe(
+    this.jobListService.getJobsByCategory(this.category, 1, 8).subscribe(
       (data) => {
         this.jobs = data.jobs || [];
         this.noList = this.jobs.length === 0;

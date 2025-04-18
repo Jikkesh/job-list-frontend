@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JobListComponent } from '../../components/job-list/job-list.component';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { JobSectionComponent } from '../../components/job-section/job-section.component';
 import { CommonModule } from '@angular/common';
@@ -9,7 +8,7 @@ import { map, Observable } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [JobListComponent, HeroComponent, JobSectionComponent, CommonModule],
+  imports: [HeroComponent, JobSectionComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

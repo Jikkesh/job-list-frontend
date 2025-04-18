@@ -27,7 +27,7 @@ export class JobListService {
 
   // Get Job list by Category
   public getJobsByCategory(category: string, page: number, size: number): Observable<any> {
-    return this.httpClient.get(`${this.BASE_URL}/category/${category}?page=${page}&size=${size}`).pipe(
+    return this.httpClient.get(`${this.BASE_URL}/category/${category}?currentPage=${page}&pageSize=${size}`).pipe(
       catchError(error => {
         console.error(error);
         throw error;

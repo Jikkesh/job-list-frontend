@@ -55,28 +55,28 @@
       <div class="prose max-w-none text-gray-700 leading-relaxed list-disc ml-5">
 
         <!-- Job Description -->
-        <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
-          Job Description
-        </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job?.job_description || '') | markdown | async"></div>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">Job Description</h2>
+        <div class="my-6 space-y-4 content-container" [innerHTML]="(job?.job_description || '') | markdown | async">
+        </div>
 
         <!-- Qualifications -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
           Qualifications
         </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job?.qualification || '') | markdown | async"></div>
+        <div class="my-6 space-y-4 content-container" [innerHTML]="(job?.qualification || '') | markdown | async"></div>
 
         <!-- Key Responsibilities -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
           Key Responsibilities
         </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job?.key_responsibilty || '') | markdown | async"></div>
+        <div class="my-6 space-y-4 content-container" [innerHTML]="(job?.key_responsibilty || '') | markdown | async">
+        </div>
 
         <!-- About Company -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
           About {{ job.company_name?.trim() }}
         </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job?.about_company || '') | markdown | async"></div>
+        <div class="my-6 space-y-4 content-container" [innerHTML]="(job?.about_company || '') | markdown | async"></div>
 
         <!-- How to Apply Section -->
         <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b-2 border-blue-100">
@@ -95,7 +95,7 @@
           Selection Process <span class="text-sm text-gray-500">(Note: These are predicted steps and may change based on
             the recruitment process.)</span>
         </h2>
-        <div class="my-6 space-y-4" [innerHTML]="(job?.selection_process || '') | markdown | async">
+        <div class="my-6 space-y-4 content-container" [innerHTML]="(job?.selection_process || '') | markdown | async">
           <p>{{ job.selection_process }}</p>
         </div>
 
