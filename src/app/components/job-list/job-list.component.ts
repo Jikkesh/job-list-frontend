@@ -52,7 +52,6 @@ export class JobListComponent implements OnInit,  OnChanges {
     } else {
       this.noList = true; // Show skeleton if jobs are not available
     }
-    console.log("Jobs in List: ", this.jobs);
   }
 
   trimDescription(text: string): string {

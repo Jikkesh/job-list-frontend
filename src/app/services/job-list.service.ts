@@ -35,12 +35,6 @@ export class JobListService {
     );
   }
 
-  // Get Job Image
-  getJobImage(jobId: string): Observable<Blob> {
-    return this.httpClient.get(`${this.BASE_URL}/${jobId}/image`, { responseType: 'blob' });
-  }
-
-
   // Get job by ID
   public getJobById(jobId: number): Observable<any> {
     return this.httpClient.get(`${this.BASE_URL}/${jobId}`).pipe(

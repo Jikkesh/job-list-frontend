@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { JobListService } from '../../services/job-list.service';
 
 @Component({
   selector: 'app-card',
@@ -24,36 +23,8 @@ export class CardComponent implements OnInit {
   public logoUrl: string = 'assets/hiring.png';  // Default logo
   jobImages: string | null = null;
 
-  constructor(private jobService: JobListService, private joblistService: JobListService) { }
-
+  constructor() { }
   ngOnInit(): void {
-    if (this.id) {
-      this.fetchJobImage(this.id)
-    }
+    this.jobImages = this.companyLogo
   }
-
-
-  /**
-     * Fetch the job image as a Blob, convert to a local URL.
-     * If it fails, use a fallback image.
-     */
-  private fetchJobImage(jobId: string): void {
-    this.joblistService.getJobImage(jobId).subscribe({
-      next: (blob: Blob) => {
-        // Convert Blob to an object URL
-        console.log('Blob:', blob);
-        const objectURL = URL.createObjectURL(blob);
-        this.jobImages = objectURL;
-      },
-      error: (err) => {
-        console.error('Error fetching job image:', err);
-        this.jobImages = 'assets/hiring.png';
-      }
-    });
-  }
-
-
-
-
-
 }

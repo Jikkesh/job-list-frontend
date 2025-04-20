@@ -1,0 +1,14 @@
+FROM node:20-alpine as build
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install --force
+
+# Copy the rest of the application after installing dependencies
+COPY . .
+
+# Start the Angular development server with hot reloading enabled
+CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--watch", "--poll=2000"]
+
+EXPOSE 4200
