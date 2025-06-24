@@ -13,13 +13,5 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'BaseApp';
-
-  constructor(private router: Router) {
-    // Scroll to top on route change
-    this.router.events.subscribe(() => {
-      window.scrollTo(0, 0);
-    });
-  }
-
-  
+  constructor(private router: Router) {}
 }

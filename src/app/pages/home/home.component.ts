@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   public features = [
     {
       title: "AI-Powered Listing",
-      description: "Our advanced AI powered system fetches job listings from various company career sites."
+      description: "Our advanced AI powered system fetches job listings from various sources."
     },
     {
       title: "Time is Key",

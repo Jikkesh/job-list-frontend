@@ -37,8 +37,8 @@ export class JobViewComponent implements OnInit {
   getJobById(jobId: number): void {
     this.joblistService.getJobById(jobId).subscribe((data) => {
       this.job = data;
-      if (this.job?.created_at) {
-        this.job.date_posted = this.formatJobDate(this.job.created_at);
+      if (this.job?.posted_on) {
+        this.job.date_posted = this.formatJobDate(this.job.posted_on);
       }
       if (this.job?.image_url) {
         this.jobImages = this.job.image_url;

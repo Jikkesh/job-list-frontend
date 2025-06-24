@@ -1,0 +1,25 @@
+
+# Multi-stage build for Angular production
+FROM node:20-alpine as build
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm ci --force
+
+COPY . .
+
+# Build the Angular application for production
+RUN npx ng build --configuration production
+
+# Production stage - smaller image with just the built files
+FROM nginx:alpine as production
+
+# Copy the built app to nginx's serve directory
+COPY --from=build /app/dist/frontend /usr/share/nginx/html
+
+# The app will be served by the main Nginx container, not this one
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
