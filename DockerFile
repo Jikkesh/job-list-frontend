@@ -44,6 +44,12 @@ USER angular
 # Expose the port (verify this matches your server configuration)
 EXPOSE 4000
 
+# Install curl for healthcheck (as recommended by Coolify)
+RUN apk add --no-cache curl
+
+# Add health check using curl
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD curl -f http://127.0.0.1:4000/ || exit 1
 
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
