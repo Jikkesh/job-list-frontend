@@ -1,22 +1,38 @@
-# Stage 1: Build Angular SSR App
-FROM node:20 AS builder
-WORKDIR /app
+# ┌───────────────────────────────────────────────────────┐
+# │ 1. BUILD STAGE: compile your Angular SSR app         │
+# └───────────────────────────────────────────────────────┘
+FROM node:18-alpine AS builder
 
+# 1.1 Set working dir
+WORKDIR /usr/src/app
+
+# 1.2 Copy package definitions and install dev deps
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
+# 1.3 Copy everything and build both client+server bundles
 COPY . .
-RUN npm run build
-RUN npm run serve:ssr:BaseApp --output-path dist/base-app
+# Adjust this to your actual SSR build command if different
+RUN npm run build && \
+    npm run build -- --configuration=server
 
-# Stage 2: Serve the SSR App
-FROM node:20-slim
-WORKDIR /app
+# ┌───────────────────────────────────────────────────────┐
+# │ 2. PRODUCTION STAGE: ship only dist and prod deps    │
+# └───────────────────────────────────────────────────────┘
+FROM node:18-alpine AS runner
 
-COPY --from=builder /app/dist/base-app ./dist/base-app
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
+WORKDIR /usr/src/app
 
+# 2.1 Copy only production dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# 2.2 Copy just the output from builder
+COPY --from=builder /usr/src/app/dist ./dist
+
+# 2.3 Expose the port your SSR server listens on
 EXPOSE 4000
 
+# 2.4 Default command: run the SSR server
+#    (adjust path if your server.mjs lives elsewhere)
 CMD ["node", "dist/base-app/server/server.mjs"]
