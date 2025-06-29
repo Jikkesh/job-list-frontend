@@ -3,34 +3,53 @@
 # └───────────────────────────────────────────────────────┘
 FROM node:18-alpine AS builder
 
-# 1.1 Set working dir
+# Set working directory
 WORKDIR /usr/src/app
 
-# 1.2 Copy package definitions and install dev deps
+# Copy package files and install dependencies
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --silent
 
-# 1.3 Copy everything and build both client+server bundles
+# Copy source code
 COPY . .
-# Adjust this to your actual SSR build command if different
-RUN ng build
+
+# Build for production with SSR
+RUN npm run build --configuration=production
 
 # ┌───────────────────────────────────────────────────────┐
 # │ 2. PRODUCTION STAGE: ship only dist and prod deps    │
 # └───────────────────────────────────────────────────────┘
 FROM node:18-alpine AS runner
 
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S angular -u 1001
+
 WORKDIR /usr/src/app
 
-# 2.1 Copy only production dependencies
+# Copy package files and install only production dependencies
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --silent && \
+    npm cache clean --force
 
-# 2.2 Copy just the output from builder
-COPY --from=builder /usr/src/app/dist ./dist
+# Copy built application from builder stage
+COPY --from=builder --chown=angular:nodejs /usr/src/app/dist ./dist
 
-# 2.3 Expose the port your SSR server listens on
+# Switch to non-root user
+USER angular
+
+# Expose the port (verify this matches your server configuration)
 EXPOSE 4000
 
-# 2.4 Default command: run the SSR server
+# Add health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:4000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start the SSR server
 CMD ["node", "dist/base-app/server/server.mjs"]
