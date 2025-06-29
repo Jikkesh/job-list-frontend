@@ -1,15 +1,22 @@
-#Frontend DockerFile
-FROM node:20-alpine as build
-
+# Stage 1: Build Angular SSR App
+FROM node:20 AS builder
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm install --force
+COPY package*.json ./
+RUN npm install
 
-# Copy the rest of the application after installing dependencies
 COPY . .
+RUN npm run build
+RUN npm run serve:ssr:BaseApp --output-path dist/base-app
 
-# Start the Angular development server with hot reloading enabled
-CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--watch", "--poll=2000"]
+# Stage 2: Serve the SSR App
+FROM node:20-slim
+WORKDIR /app
 
-EXPOSE 4200
+COPY --from=builder /app/dist/base-app ./dist/base-app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+
+EXPOSE 4000
+
+CMD ["node", "dist/base-app/server/server.mjs"]
