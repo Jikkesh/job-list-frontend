@@ -13,8 +13,7 @@ RUN npm ci
 # 1.3 Copy everything and build both client+server bundles
 COPY . .
 # Adjust this to your actual SSR build command if different
-RUN npm run build && \
-    npm run build -- --configuration=server
+RUN ng build
 
 # ┌───────────────────────────────────────────────────────┐
 # │ 2. PRODUCTION STAGE: ship only dist and prod deps    │
@@ -34,5 +33,4 @@ COPY --from=builder /usr/src/app/dist ./dist
 EXPOSE 4000
 
 # 2.4 Default command: run the SSR server
-#    (adjust path if your server.mjs lives elsewhere)
 CMD ["node", "dist/base-app/server/server.mjs"]
