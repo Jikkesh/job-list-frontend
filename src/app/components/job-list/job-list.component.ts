@@ -13,7 +13,7 @@ import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component'
   templateUrl: './job-list.component.html',
   styleUrl: './job-list.component.css'
 })
-export class JobListComponent implements OnInit,  OnChanges {
+export class JobListComponent implements OnInit, OnChanges {
   @Input() jobs: any;
   @Input() title!: string;
   @Input() to!: string;
@@ -46,11 +46,26 @@ export class JobListComponent implements OnInit,  OnChanges {
         location: `${job.city}, ${job.state}`, // Combine city and state
         salary: job.salary_package || 'Not disclosed',
         type: job.category,
-        postedDate: '2 days ago', // Replace with actual date formatting
+        postedDate: this.formatDateAgo(job.posted_on), // Replace with actual date formatting
         description: this.trimDescription(job.job_description),
       }));
     } else {
       this.noList = true; // Show skeleton if jobs are not available
+    }
+  }
+
+  formatDateAgo(dateString: any) {
+    const date = new Date(dateString);
+    const currentDate = new Date();
+    const timeDiff = currentDate.getTime() - date.getTime();
+    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+    if (daysDiff === 0) {
+      return 'Today';
+    } else if (daysDiff === 1) {
+      return 'Yesterday';
+    } else {
+      return `${daysDiff} days ago`;
     }
   }
 

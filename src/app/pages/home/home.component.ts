@@ -3,7 +3,7 @@ import { HeroComponent } from '../../components/hero/hero.component';
 import { JobSectionComponent } from '../../components/job-section/job-section.component';
 import { CommonModule } from '@angular/common';
 import { JobListService } from '../../services/job-list.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, shareReplay, catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +13,10 @@ import { map, Observable } from 'rxjs';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-
-  public internship_jobs!: Observable<any>;
-  public fresher_jobs!: Observable<any>;
-  public remote_jobs!: Observable<any>;
-  public part_time_jobs!: Observable<any>;
-
-  
+  public internship_jobs!: Observable<any[]>;
+  public fresher_jobs!: Observable<any[]>;
+  public remote_jobs!: Observable<any[]>;
+  public part_time_jobs!: Observable<any[]>;
 
   public features = [
     {
@@ -39,11 +36,60 @@ export class HomeComponent implements OnInit {
   constructor(private jobService: JobListService) {}
 
   ngOnInit(): void {
-    const topJobs$ = this.jobService.getTopJobs();
+    // Share the API call to avoid multiple requests and cache response
+    const topJobs$ = this.jobService.getTopJobs().pipe(
+      shareReplay(1), // Cache the response for multiple subscriptions
+      catchError(error => {
+        console.error('API Error:', error);
+        return of({}); // Return empty object on error
+      })
+    );
+
+    // Map each job type with proper error handling
+    this.fresher_jobs = topJobs$.pipe(
+      map(res => this.extractJobsData(res, 'fresher'))
+    );
     
-    this.fresher_jobs = topJobs$.pipe(map(res => res.fresher?.[0]?.jobs_data ?? []));
-    this.internship_jobs = topJobs$.pipe(map(res => res.internship?.[0]?.jobs_data ?? []));
-    this.remote_jobs = topJobs$.pipe(map(res => res.remote?.[0]?.jobs_data ?? []));
-    this.part_time_jobs = topJobs$.pipe(map(res => res.part_time?.[0]?.jobs_data ?? []));
+    this.internship_jobs = topJobs$.pipe(
+      map(res => this.extractJobsData(res, 'internship'))
+    );
+    
+    this.remote_jobs = topJobs$.pipe(
+      map(res => this.extractJobsData(res, 'remote'))
+    );
+    
+    this.part_time_jobs = topJobs$.pipe(
+      map(res => this.extractJobsData(res, 'part_time'))
+    );
   }
+
+  private extractJobsData(response: any, jobType: string): any[] {
+    try {
+      const data = response[jobType];
+      
+      // Handle different possible response structures
+      if (!data) return [];
+      
+      // If data is already an array of jobs
+      if (Array.isArray(data) && data.length > 0 && data[0].jobs_data) {
+        return data[0].jobs_data || [];
+      }
+      
+      // If data is direct jobs array
+      if (Array.isArray(data)) {
+        return data;
+      }
+      
+      // If data has jobs_data property directly
+      if (data.jobs_data && Array.isArray(data.jobs_data)) {
+        return data.jobs_data;
+      }
+      
+      return [];
+    } catch (error) {
+      console.error(`Error extracting ${jobType} jobs:`, error);
+      return [];
+    }
+  }
+
 }

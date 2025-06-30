@@ -1,79 +1,49 @@
-<footer class="relative bg-slate-300 pt-8 pb-6">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-wrap justify-between items-center text-left lg:flex-nowrap flex-wrap">
-
-      <!-- Left: Social Icons -->
-      <div class="w-full lg:w-4/12 px-4 flex justify-start lg:justify-start">
-        <div>
-          <h4 class="text-3xl font-semibold text-blueGray-700">Let's keep in touch!</h4>
-          <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
-            Find us on any of these platforms, we respond in 1-2 business days.
-          </h5>
-          <div class="mt-6 flex">
-            <a href="https://x.com/jobsAI_" target="_blank" rel="noopener noreferrer"
-              class="bg-white text-lightBlue-400 shadow-lg h-10 w-10 flex items-center justify-center rounded-full mr-2">
-              <i class="fa-brands fa-twitter"></i>
-            </a>
-            <a href="https://www.instagram.com/jobsai_/?hl=en" target="_blank"
-              class="bg-white text-lightBlue-600 shadow-lg h-10 w-10 flex items-center justify-center rounded-full mr-2">
-              <i class="fa-brands fa-instagram"></i>
-          </a>
-            <a href="https://www.youtube.com/@JobsAI-30" target="_blank"
-              class="bg-white text-red-600 shadow-lg h-10 w-10 flex items-center justify-center rounded-full mr-2">
-              <i class="fa-brands fa-youtube"></i>
-          </a>
-            <a href="https://www.threads.net/@jobsai_" target="_blank" class="bg-white text-black shadow-lg h-10 w-10 flex items-center justify-center rounded-full">
-              <i class="fa-brands fa-threads"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Center Empty Space -->
-      <div class="hidden lg:block w-2/12"></div>
-
-      <!-- Right: Resources -->
-      <div class="w-full lg:w-4/12 px-4 flex justify-end">
-        <div>
-          <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Resources</span>
-          <ul class="list-unstyled">
-            <li>
-              <a class="text-blueGray-600 hover:text-blueGray-800 block pb-2 text-sm" href="/about">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a class="text-blueGray-600 hover:text-blueGray-800 block pb-2 text-sm" href="/terms">
-                Terms &amp; Conditions
-              </a>
-            </li>
-            <li>
-              <a class="text-blueGray-600 hover:text-blueGray-800 block pb-2 text-sm" href="/policy">
-                Privacy Policy
-              </a>
-            </li>
-            <li>
-              <a class="text-blueGray-600 hover:text-blueGray-800 block pb-2 text-sm" href="/contact">
-                Contact Us
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-
-    <hr class="my-6 border-blueGray-300">
-
-    <!-- Copyright -->
-    <div class="flex flex-wrap items-center justify-center md:justify-between">
-      <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-        <div class="text-sm text-blueGray-500 font-semibold py-1">
-          Copyright © <span id="get-current-year">{{ currentYear }}</span>.
-          <a href="https://yourwebsite.com" class="text-blueGray-500 hover:text-gray-800">Jobs AI</a>.
-        </div>
+<footer class="bg-slate-300 pt-8 pb-6">
+  <div class="container mx-auto px-4 flex flex-col lg:flex-row lg:justify-between lg:items-center">
+    <!-- Left: Social Icons -->
+    <div class="w-full lg:w-4/12 text-center lg:text-left mb-8 lg:mb-0">
+      <h4 class="text-2xl sm:text-3xl font-semibold text-blueGray-700">Let's keep in touch!</h4>
+      <p class="text-md sm:text-lg mt-2 text-blueGray-600">
+        Find us on any of these platforms, we respond in 1–2 business days.
+      </p>
+      <div class="mt-4 flex justify-center lg:justify-start space-x-3">
+        <a href="https://x.com/jobsAI_" target="_blank" rel="noopener noreferrer"
+           class="bg-white text-lightBlue-400 shadow-lg h-10 w-10 flex items-center justify-center rounded-full">
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+        <a href="https://www.instagram.com/jobsai_/?hl=en" target="_blank"
+           class="bg-white text-lightBlue-600 shadow-lg h-10 w-10 flex items-center justify-center rounded-full">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.youtube.com/@JobsAI-30" target="_blank"
+           class="bg-white text-red-600 shadow-lg h-10 w-10 flex items-center justify-center rounded-full">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://www.threads.net/@jobsai_" target="_blank"
+           class="bg-white text-black shadow-lg h-10 w-10 flex items-center justify-center rounded-full">
+          <i class="fa-brands fa-threads"></i>
+        </a>
       </div>
     </div>
 
+    <!-- Right: Resources -->
+    <div class="w-full lg:w-4/12 text-center lg:text-right">
+      <span class="uppercase text-blueGray-500 text-sm font-semibold">Resources</span>
+      <ul class="mt-3 space-y-2">
+        <li><a href="/about"       class="block text-blueGray-600 hover:text-blueGray-800 text-sm">About Us</a></li>
+        <li><a href="/terms"       class="block text-blueGray-600 hover:text-blueGray-800 text-sm">Terms &amp; Conditions</a></li>
+        <li><a href="/policy"      class="block text-blueGray-600 hover:text-blueGray-800 text-sm">Privacy Policy</a></li>
+        <li><a href="/contact"     class="block text-blueGray-600 hover:text-blueGray-800 text-sm">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="my-6 border-blueGray-300">
+
+  <!-- Copyright -->
+  <div class="container mx-auto px-4 text-center">
+    <p class="text-sm text-blueGray-500 font-semibold">
+      © {{ currentYear }} <a href="https://yourwebsite.com" class="hover:text-gray-800">Jobs AI</a>.
+    </p>
   </div>
 </footer>
