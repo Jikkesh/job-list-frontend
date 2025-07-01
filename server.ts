@@ -34,7 +34,10 @@ export function app(): express.Express {
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+        providers: [
+          { provide: APP_BASE_HREF, useValue: baseUrl },
+          { provide: 'CACHE_BUSTER', useValue: Date.now() },
+        ],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));
