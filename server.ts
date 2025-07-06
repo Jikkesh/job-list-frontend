@@ -39,18 +39,76 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
-  // Static file options with proper caching
-  const staticOpts = {
-    index: false,
-    setHeaders(res: any, filePath: string) {
-      if (/\.(js|css|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot)$/.test(filePath)) {
-        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-      }
-    }
-  };
+  // Add logging to debug
+  server.use((req, res, next) => {
+    console.log(`Request: ${req.method} ${req.path}`);
+    next();
+  });
 
-  // Serve static files FIRST - this is the key fix!
-  server.use(express.static(browserDistFolder, staticOpts));
+  // EXPLICIT STATIC FILE ROUTES - These must come BEFORE the catch-all route
+  
+  // Serve favicon.ico
+  server.get('/favicon.ico', (req, res) => {
+    console.log('Serving favicon.ico');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(join(browserDistFolder, 'favicon.ico'));
+  });
+
+  // Serve ads.txt
+  server.get('/ads.txt', (req, res) => {
+    console.log('Serving ads.txt');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(join(browserDistFolder, 'ads.txt'));
+  });
+
+  // Serve robots.txt
+  server.get('/robots.txt', (req, res) => {
+    console.log('Serving robots.txt');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(join(browserDistFolder, 'robots.txt'));
+  });
+
+  // Serve CSS files
+  server.get('/styles-*.css', (req, res) => {
+    console.log('Serving CSS:', req.path);
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(join(browserDistFolder, req.path));
+  });
+
+  // Serve JS files
+  server.get('/main-*.js', (req, res) => {
+    console.log('Serving JS:', req.path);
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(join(browserDistFolder, req.path));
+  });
+
+  server.get('/polyfills-*.js', (req, res) => {
+    console.log('Serving polyfills:', req.path);
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(join(browserDistFolder, req.path));
+  });
+
+  server.get('/chunk-*.js', (req, res) => {
+    console.log('Serving chunk:', req.path);
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(join(browserDistFolder, req.path));
+  });
+
+  // Serve assets folder
+  server.use('/assets', express.static(join(browserDistFolder, 'assets'), {
+    maxAge: '1y',
+    setHeaders(res) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }));
+
+  // Serve media folder
+  server.use('/media', express.static(join(browserDistFolder, 'media'), {
+    maxAge: '1y',
+    setHeaders(res) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }));
 
   // Custom routes for dynamic content
   server.get('/sitemap.xml', (req, res) => {
@@ -81,6 +139,7 @@ export function app(): express.Express {
 
   // All regular routes use the Angular engine (this should be LAST)
   server.get('*', (req, res, next) => {
+    console.log('SSR route:', req.path);
     const { protocol, originalUrl, baseUrl, headers } = req;
     commonEngine
       .render({

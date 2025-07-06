@@ -36,7 +36,7 @@ RUN npm ci --omit=dev --silent && \
     npm cache clean --force
 
 # Copy built application from builder stage
-COPY --from=builder --chown=angular:nodejs /usr/src/app/dist/base-app ./dist
+COPY --from=builder --chown=angular:nodejs /usr/src/app/dist ./dist
 
 # Expose the port (make sure this matches your Angular SSR config)
 EXPOSE 4000
@@ -55,4 +55,4 @@ USER angular
 ENTRYPOINT ["dumb-init", "--"]
 
 # Start the SSR server
-CMD ["node", "dist/server/server.mjs"]
+CMD ["node", "dist/base-app/server/server.mjs"]
