@@ -5,6 +5,30 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
 
+function generateSitemapXml(urls: string[]): string {
+  const xmlUrls = urls.map(url => `
+  <url>
+    <loc>${url}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${xmlUrls}
+  </urlset>`;
+}
+
+async function getJobUrls(): Promise<string[]> {
+  return [
+    'https://jobsai.in/jobs/fresher',
+    'https://jobsai.in/jobs/internship',
+    'https://jobsai.in/jobs/experienced',
+    'https://jobsai.in/jobs/remote',
+  ];
+}
+
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -17,17 +41,44 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
+  // Middleware to handle static files and cache control
+  server.use((req, res, next) => {
+    if (req.url.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-store');
+    } else if (/\.(js|css|woff|woff2|png|jpg|svg|ico|webp)$/.test(req.url)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    } else if (req.url.endsWith('.json')) {
+      res.setHeader('Cache-Control', 'no-cache');
+    }
+    next();
+  });
+
+  server.get('/sitemap.xml', (req, res) => {
+    res.setHeader('Content-Type', 'application/xml');
+    res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://jobsai.in/sitemap-jobs.xml</loc>
+  </sitemap>
+</sitemapindex>`);
+  });
+
+
+  server.get('/sitemap-jobs.xml', async (req, res) => {
+    const urls = await getJobUrls();
+    res.setHeader('Content-Type', 'application/xml');
+    res.send(generateSitemapXml(urls));
+  });
+
+
   // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
+  server.get('*.*', express.static(browserDistFolder));
+
+
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
-
     commonEngine
       .render({
         bootstrap,
@@ -53,9 +104,7 @@ function run(): void {
   // Start up the Node server
   const server = app();
   server.listen(port, host, () => {
-    console.log(
-      `Node Express server listening on http://${host}:${port}`
-    );
+    console.log(`Node Express server listening on http://${host}:${port}`);
   });
 }
 

@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Main sitemap
+Sitemap: https://jobsai.in/sitemap.xml
+
+# Specific sitemaps for better indexing
+Sitemap: https://jobsai.in/sitemap-jobs.xml
+
+# Disallow certain paths if needed
+# Disallow: /admin/
+# Disallow: /api/
+# Disallow: /temp/
+
+# Allow specific important pages
+Allow: /jobs
+Allow: /jobs/fresher
+Allow: /jobs/internship
+Allow: /jobs/experienced
+Allow: /jobs/remote
+Allow: /terms
+Allow: /policy
+Allow: /about
+Allow: /contact
