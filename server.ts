@@ -75,7 +75,6 @@ export function app(): express.Express {
   server.get('*.*', express.static(browserDistFolder));
 
 
-
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
