@@ -28,7 +28,6 @@ async function getJobUrls(): Promise<string[]> {
   ];
 }
 
-
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -40,36 +39,20 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
+  // Static file options with proper caching
   const staticOpts = {
     index: false,
     setHeaders(res: any, filePath: string) {
-      if (/\.(js|css|png|jpg|svg|ico|webp)$/.test(filePath)) {
+      if (/\.(js|css|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot)$/.test(filePath)) {
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
       }
     }
   };
 
-  // Middleware to handle static files and cache control
-  server.use((req, res, next) => {
-    if (req.path.endsWith('.html') || req.path === '/') {
-      return next();
-    }
-    // serve all other files if they exist on disk
-    express.static(browserDistFolder, staticOpts)(req, res, next);
-  });
+  // Serve static files FIRST - this is the key fix!
+  server.use(express.static(browserDistFolder, staticOpts));
 
-  // 2) No‐cache middleware for any HTML (SSR) request
-  server.use((req, res, next) => {
-    if (!req.path.includes('.') || req.path.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'no-store');
-    }
-    next();
-  });
-
-  // server.get('/favicon.ico', (_req, res) =>
-  //   res.sendFile(join(browserDistFolder, 'favicon.ico'))
-  // );
-
+  // Custom routes for dynamic content
   server.get('/sitemap.xml', (req, res) => {
     res.setHeader('Content-Type', 'application/xml');
     res.send(`<?xml version="1.0" encoding="UTF-8"?>
@@ -80,14 +63,23 @@ export function app(): express.Express {
 </sitemapindex>`);
   });
 
-
   server.get('/sitemap-jobs.xml', async (req, res) => {
     const urls = await getJobUrls();
     res.setHeader('Content-Type', 'application/xml');
     res.send(generateSitemapXml(urls));
   });
 
-  // All regular routes use the Angular engine
+  // No-cache middleware for HTML requests (SSR pages)
+  server.use((req, res, next) => {
+    // Only apply no-cache to routes that don't have file extensions
+    // or explicitly end with .html
+    if (!req.path.includes('.') || req.path.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-store');
+    }
+    next();
+  });
+
+  // All regular routes use the Angular engine (this should be LAST)
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
     commonEngine
