@@ -35,23 +35,40 @@ export function app(): express.Express {
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
-
   const commonEngine = new CommonEngine();
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
+  const staticOpts = {
+    index: false,
+    setHeaders(res: any, filePath: string) {
+      if (/\.(js|css|png|jpg|svg|ico|webp)$/.test(filePath)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      }
+    }
+  };
+
   // Middleware to handle static files and cache control
   server.use((req, res, next) => {
-    if (req.url.endsWith('.html')) {
+    if (req.path.endsWith('.html') || req.path === '/') {
+      return next();
+    }
+    // serve all other files if they exist on disk
+    express.static(browserDistFolder, staticOpts)(req, res, next);
+  });
+
+  // 2) No‐cache middleware for any HTML (SSR) request
+  server.use((req, res, next) => {
+    if (!req.path.includes('.') || req.path.endsWith('.html')) {
       res.setHeader('Cache-Control', 'no-store');
-    } else if (/\.(js|css|woff|woff2|png|jpg|svg|ico|webp)$/.test(req.url)) {
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    } else if (req.url.endsWith('.json')) {
-      res.setHeader('Cache-Control', 'no-cache');
     }
     next();
   });
+
+  // server.get('/favicon.ico', (_req, res) =>
+  //   res.sendFile(join(browserDistFolder, 'favicon.ico'))
+  // );
 
   server.get('/sitemap.xml', (req, res) => {
     res.setHeader('Content-Type', 'application/xml');
@@ -69,11 +86,6 @@ export function app(): express.Express {
     res.setHeader('Content-Type', 'application/xml');
     res.send(generateSitemapXml(urls));
   });
-
-
-  // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder));
-
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
