@@ -55,4 +55,4 @@ USER angular
 ENTRYPOINT ["dumb-init", "--"]
 
 # Start the SSR server
-CMD ["node", "dist/base-app/server/server.mjs"]
+CMD ["node", "dist/server/server.mjs"]
