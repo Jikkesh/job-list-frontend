@@ -47,32 +47,38 @@ export function app(): express.Express {
 
   // EXPLICIT STATIC FILE ROUTES - These must come BEFORE the catch-all route
 
-// Replace your favicon.ico route with this fixed version:
-
-server.get('/favicon.ico', (req, res) => {
-  console.log('Serving favicon.ico');
+  // Replace your favicon.ico route with this fixed version:
   const faviconPath = join(browserDistFolder, 'favicon.ico');
   console.log('Looking for favicon at:', faviconPath);
-  
-  // Check if file exists
   const fs = require('fs');
   if (!fs.existsSync(faviconPath)) {
     console.log('ERROR: favicon.ico not found at path:', faviconPath);
-    res.status(404).send('favicon.ico not found');
-    return;
   }
-  
-  console.log('favicon.ico exists, serving...');
-  res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-  res.sendFile(faviconPath, (err) => {
-    if (err) {
-      console.log('Error serving favicon.ico:', err);
-      res.status(500).send('Error serving favicon.ico');
-    } else {
-      console.log('favicon.ico served successfully');
+
+  server.get('/favicon.ico', (req, res) => {
+    console.log('Serving favicon.ico');
+    const faviconPath = join(browserDistFolder, 'favicon.ico');
+    console.log('Looking for favicon at:', faviconPath);
+
+    // Check if file exists
+    const fs = require('fs');
+    if (!fs.existsSync(faviconPath)) {
+      console.log('ERROR: favicon.ico not found at path:', faviconPath);
+      res.status(404).send('favicon.ico not found');
+      return;
     }
+
+    console.log('favicon.ico exists, serving...');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(faviconPath, (err) => {
+      if (err) {
+        console.log('Error serving favicon.ico:', err);
+        res.status(500).send('Error serving favicon.ico');
+      } else {
+        console.log('favicon.ico served successfully');
+      }
+    });
   });
-});
 
   // Serve ads.txt
   server.get('/ads.txt', (req, res) => {
