@@ -45,37 +45,30 @@ export function app(): express.Express {
     next();
   });
 
+  // Middleware to prevent caching of 404 static files
+  server.use((req, res, next) => {
+    if (req.path.match(/\.(ico|png|jpg|jpeg|gif|css|js|woff|woff2|ttf|eot|svg|txt)$/)) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+    next();
+  });
+
   // EXPLICIT STATIC FILE ROUTES - These must come BEFORE the catch-all route
 
-  // Replace your favicon.ico route with this fixed version:
-  const faviconPath = join(browserDistFolder, 'favicon.ico');
-  console.log('Looking for favicon at:', faviconPath);
-  const fs = require('fs');
-  if (!fs.existsSync(faviconPath)) {
-    console.log('ERROR: favicon.ico not found at path:', faviconPath);
-  }
-
+  // Serve favicon.ico with proper error handling
   server.get('/favicon.ico', (req, res) => {
     console.log('Serving favicon.ico');
     const faviconPath = join(browserDistFolder, 'favicon.ico');
-    console.log('Looking for favicon at:', faviconPath);
-
-    // Check if file exists
-    const fs = require('fs');
-    if (!fs.existsSync(faviconPath)) {
-      console.log('ERROR: favicon.ico not found at path:', faviconPath);
-      res.status(404).send('favicon.ico not found');
-      return;
-    }
-
-    console.log('favicon.ico exists, serving...');
+    
+    res.setHeader('Content-Type', 'image/x-icon');
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    
     res.sendFile(faviconPath, (err) => {
       if (err) {
-        console.log('Error serving favicon.ico:', err);
-        res.status(500).send('Error serving favicon.ico');
-      } else {
-        console.log('favicon.ico served successfully');
+        console.log('Favicon error:', err);
+        res.status(404)
+           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+           .send('Favicon not found');
       }
     });
   });
@@ -84,40 +77,76 @@ export function app(): express.Express {
   server.get('/ads.txt', (req, res) => {
     console.log('Serving ads.txt');
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(join(browserDistFolder, 'ads.txt'));
+    res.sendFile(join(browserDistFolder, 'ads.txt'), (err) => {
+      if (err) {
+        res.status(404)
+           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+           .send('ads.txt not found');
+      }
+    });
   });
 
   // Serve robots.txt
   server.get('/robots.txt', (req, res) => {
     console.log('Serving robots.txt');
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(join(browserDistFolder, 'robots.txt'));
+    res.sendFile(join(browserDistFolder, 'robots.txt'), (err) => {
+      if (err) {
+        res.status(404)
+           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+           .send('robots.txt not found');
+      }
+    });
   });
 
   // Serve CSS files
   server.get('/styles-*.css', (req, res) => {
     console.log('Serving CSS:', req.path);
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(join(browserDistFolder, req.path));
+    res.sendFile(join(browserDistFolder, req.path), (err) => {
+      if (err) {
+        res.status(404)
+           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+           .send('CSS file not found');
+      }
+    });
   });
 
   // Serve JS files
   server.get('/main-*.js', (req, res) => {
     console.log('Serving JS:', req.path);
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(join(browserDistFolder, req.path));
+    res.sendFile(join(browserDistFolder, req.path), (err) => {
+      if (err) {
+        res.status(404)
+           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+           .send('JS file not found');
+      }
+    });
   });
 
   server.get('/polyfills-*.js', (req, res) => {
     console.log('Serving polyfills:', req.path);
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(join(browserDistFolder, req.path));
+    res.sendFile(join(browserDistFolder, req.path), (err) => {
+      if (err) {
+        res.status(404)
+           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+           .send('Polyfills file not found');
+      }
+    });
   });
 
   server.get('/chunk-*.js', (req, res) => {
     console.log('Serving chunk:', req.path);
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(join(browserDistFolder, req.path));
+    res.sendFile(join(browserDistFolder, req.path), (err) => {
+      if (err) {
+        res.status(404)
+           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+           .send('Chunk file not found');
+      }
+    });
   });
 
   // Serve assets folder
@@ -155,8 +184,6 @@ export function app(): express.Express {
 
   // No-cache middleware for HTML requests (SSR pages)
   server.use((req, res, next) => {
-    // Only apply no-cache to routes that don't have file extensions
-    // or explicitly end with .html
     if (!req.path.includes('.') || req.path.endsWith('.html')) {
       res.setHeader('Cache-Control', 'no-store');
     }

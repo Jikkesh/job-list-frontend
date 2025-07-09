@@ -34,11 +34,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-EG5XH5QE27');
   </script>
   <meta name="google-adsense-account" content="ca-pub-1851989122674922">
-
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1851989122674922"
     crossorigin="anonymous"></script>
 
@@ -79,7 +77,9 @@
   <meta property="article:author" content="https://www.linkedin.com/company/jobsai-india">
   <meta property="article:publisher" content="https://www.linkedin.com/company/jobsai-india">
 
-  <!-- Structured Data - Organization -->
+  <!-- ENHANCED STRUCTURED DATA FOR SITELINKS -->
+  
+  <!-- Main Organization Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -107,11 +107,37 @@
       "@type": "PostalAddress",
       "addressCountry": "IN",
       "addressRegion": "India"
-    }
+    },
+    "department": [
+      {
+        "@type": "Organization",
+        "name": "Freshers Jobs",
+        "url": "https://jobsai.in/jobs/fresher",
+        "description": "Entry-level tech jobs for fresh graduates across India"
+      },
+      {
+        "@type": "Organization", 
+        "name": "Internships",
+        "url": "https://jobsai.in/jobs/internship",
+        "description": "Hands-on internship opportunities for students and new graduates"
+      },
+      {
+        "@type": "Organization",
+        "name": "Remote Jobs",
+        "url": "https://jobsai.in/jobs/remote", 
+        "description": "Work-from-home tech opportunities across India"
+      },
+      {
+        "@type": "Organization",
+        "name": "Experienced Jobs",
+        "url": "https://jobsai.in/jobs/experienced",
+        "description": "Mid-to-senior level tech positions for experienced professionals"
+      }
+    ]
   }
   </script>
 
-  <!-- Structured Data - Website with Enhanced Navigation -->
+  <!-- Enhanced Website Schema with Sitelinks Search Box -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -120,293 +146,150 @@
     "alternateName": "JobsAI",
     "url": "https://jobsai.in",
     "description": "Jobs AI is India's leading job platform for tech careers, offering a wide range of opportunities including fresher jobs, internships, experienced roles, and remote jobs in the IT industry.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://jobsai.in/jobs/{search_term_string}",
-      "query-input": "required name=search_term_string"
-    },
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": "https://jobsai.in/jobs/{search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    ],
     "publisher": {
       "@type": "Organization",
       "name": "Jobs AI",
       "logo": "https://jobsai.in/assets/logo/jobsai-logo.png"
     },
-    "mainEntity": {
-      "@type": "ItemList",
-      "name": "Jobs AI Main Sections",
-      "numberOfItems": 4,
-      "itemListElement": [
-        {
-          "@type": "SiteNavigationElement",
-          "position": 1,
-          "name": "Freshers Jobs in India",
-          "description": "Entry-level tech jobs for fresh graduates across India",
-          "url": "https://jobsai.in/jobs/fresher"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 2,
-          "name": "Internships in India",
-          "description": "Hands-on internship opportunities for students and new graduates",
-          "url": "https://jobsai.in/jobs/internship"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 3,
-          "name": "Remote Jobs in India",
-          "description": "Work-from-home tech opportunities across India",
-          "url": "https://jobsai.in/jobs/remote"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 4,
-          "name": "Experienced Jobs in India",
-          "description": "Mid-to-senior level tech positions for experienced professionals",
-          "url": "https://jobsai.in/jobs/experienced"
-        }
-      ]
-    }
-  }
-  </script>
-
-  <!-- Structured Data - Comprehensive Site Navigation -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Jobs AI Platform Sections",
-    "description": "Complete navigation structure for Jobs AI platform",
-    "url": "https://jobsai.in",
-    "numberOfItems": 8,
-    "itemListElement": [
+    "mainEntity": [
       {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Freshers Jobs in India",
-        "item": {
-          "@type": "WebPage",
-          "name": "Freshers Jobs in India",
-          "description": "Entry-level tech jobs for fresh graduates across India",
-          "url": "https://jobsai.in/jobs/fresher"
+        "@type": "WebPage",
+        "@id": "https://jobsai.in/jobs/fresher",
+        "name": "Freshers Jobs",
+        "description": "Entry-level tech jobs for fresh graduates across India. Find your first job opportunity with top companies.",
+        "url": "https://jobsai.in/jobs/fresher",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Jobs AI",
+          "url": "https://jobsai.in"
         }
       },
       {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Internships in India",
-        "item": {
-          "@type": "WebPage",
-          "name": "Internships in India",
-          "description": "Hands-on internship opportunities for students and new graduates",
-          "url": "https://jobsai.in/jobs/internship"
+        "@type": "WebPage",
+        "@id": "https://jobsai.in/jobs/internship", 
+        "name": "Internships",
+        "description": "Hands-on internship opportunities for students and new graduates. Gain real-world experience.",
+        "url": "https://jobsai.in/jobs/internship",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Jobs AI",
+          "url": "https://jobsai.in"
         }
       },
       {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Remote Jobs in India",
-        "item": {
-          "@type": "WebPage",
-          "name": "Remote Jobs in India",
-          "description": "Work-from-home tech opportunities across India",
-          "url": "https://jobsai.in/jobs/remote"
+        "@type": "WebPage",
+        "@id": "https://jobsai.in/jobs/remote",
+        "name": "Remote Jobs", 
+        "description": "Work-from-home tech opportunities across India. Find flexible remote positions.",
+        "url": "https://jobsai.in/jobs/remote",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Jobs AI",
+          "url": "https://jobsai.in"
         }
       },
       {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "Experienced Jobs in India",
-        "item": {
-          "@type": "WebPage",
-          "name": "Experienced Jobs in India",
-          "description": "Mid-to-senior level tech positions for experienced professionals",
-          "url": "https://jobsai.in/jobs/experienced"
+        "@type": "WebPage",
+        "@id": "https://jobsai.in/jobs/experienced",
+        "name": "Experienced Jobs",
+        "description": "Mid-to-senior level tech positions for experienced professionals. Advance your career.",
+        "url": "https://jobsai.in/jobs/experienced",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Jobs AI",
+          "url": "https://jobsai.in"
         }
       },
       {
-        "@type": "ListItem",
-        "position": 5,
-        "name": "Companies",
-        "item": {
-          "@type": "WebPage",
-          "name": "Companies Hiring",
-          "description": "Top companies hiring tech talent in India",
-          "url": "https://jobsai.in/companies"
+        "@type": "WebPage",
+        "@id": "https://jobsai.in/companies",
+        "name": "Companies Hiring",
+        "description": "Top companies hiring tech talent in India. Explore opportunities with leading employers.",
+        "url": "https://jobsai.in/companies",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Jobs AI",
+          "url": "https://jobsai.in"
         }
       },
       {
-        "@type": "ListItem",
-        "position": 6,
+        "@type": "WebPage",
+        "@id": "https://jobsai.in/categories",
         "name": "Job Categories",
-        "item": {
-          "@type": "WebPage",
-          "name": "Job Categories",
-          "description": "Browse jobs by technology and skill categories",
-          "url": "https://jobsai.in/categories"
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 7,
-        "name": "About Us",
-        "item": {
-          "@type": "WebPage",
-          "name": "About Jobs AI",
-          "description": "Learn about Jobs AI platform and our mission",
-          "url": "https://jobsai.in/about"
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 8,
-        "name": "Contact",
-        "item": {
-          "@type": "WebPage",
-          "name": "Contact Us",
-          "description": "Get in touch with Jobs AI team",
-          "url": "https://jobsai.in/contact"
+        "description": "Browse jobs by technology and skill categories. Find roles that match your expertise.",
+        "url": "https://jobsai.in/categories",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Jobs AI",
+          "url": "https://jobsai.in"
         }
       }
     ]
   }
   </script>
 
-  <!-- Structured Data - Freshers Full Stack Developer Jobs -->
+  <!-- Enhanced Sitelinks Navigation Structure -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Freshers Full Stack Developer Jobs in India",
-  "description": "Entry‑level Full Stack Developer positions for fresh graduates across India",
-  "url": "https://jobsai.in/jobs/fresher",
-  "numberOfItems": 1,
-  "itemListElement": [
-    {
-      "@type": "JobPosting",
-      "title": "Full Stack Developer (Fresher)",
-      "description": "Kickstart your career as a Full Stack Developer, working with modern JavaScript frameworks and backend technologies.",
-      "datePosted": "2025-07-06",
-      "jobLocation": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IN"
-        }
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Jobs AI Main Navigation",
+    "url": "https://jobsai.in",
+    "hasPart": [
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Freshers Jobs",
+        "description": "Entry-level tech jobs for fresh graduates across India",
+        "url": "https://jobsai.in/jobs/fresher",
+        "position": 1
       },
-      "hiringOrganization": {
-        "@type": "Organization",
-        "name": "Jobs AI",
-        "sameAs": "https://jobsai.in"
+      {
+        "@type": "SiteNavigationElement", 
+        "name": "Internships",
+        "description": "Hands-on internship opportunities for students and new graduates",
+        "url": "https://jobsai.in/jobs/internship",
+        "position": 2
       },
-      "employmentType": ["FULL_TIME"],
-      "workHours": "Flexible"
-    }
-  ]
-}
-</script>
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Remote Jobs",
+        "description": "Work-from-home tech opportunities across India", 
+        "url": "https://jobsai.in/jobs/remote",
+        "position": 3
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Experienced Jobs",
+        "description": "Mid-to-senior level tech positions for experienced professionals",
+        "url": "https://jobsai.in/jobs/experienced",
+        "position": 4
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Companies",
+        "description": "Top companies hiring tech talent in India",
+        "url": "https://jobsai.in/companies",
+        "position": 5
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Categories",
+        "description": "Browse jobs by technology and skill categories",
+        "url": "https://jobsai.in/categories", 
+        "position": 6
+      }
+    ]
+  }
+  </script>
 
-  <!-- Structured Data - Full Stack Developer Internships -->
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Full Stack Developer Internships in India",
-  "description": "Hands‑on internship opportunities for aspiring Full Stack Developers across India",
-  "url": "https://jobsai.in/jobs/internship",
-  "numberOfItems": 1,
-  "itemListElement": [
-    {
-      "@type": "JobPosting",
-      "title": "Full Stack Developer Intern",
-      "description": "Gain real‑world experience building end‑to‑end web applications under mentorship.",
-      "datePosted": "2025-07-06",
-      "jobLocation": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IN"
-        }
-      },
-      "hiringOrganization": {
-        "@type": "Organization",
-        "name": "Jobs AI",
-        "sameAs": "https://jobsai.in"
-      },
-      "employmentType": ["INTERNSHIP"],
-      "workHours": "Flexible"
-    }
-  ]
-}
-</script>
-
-  <!-- Structured Data - Remote Full Stack Developer Jobs -->
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Remote Full Stack Developer Jobs in India",
-  "description": "Work-from-home Full Stack Developer roles open to candidates across India",
-  "url": "https://jobsai.in/jobs/remote",
-  "numberOfItems": 1,
-  "itemListElement": [
-    {
-      "@type": "JobPosting",
-      "title": "Remote Full Stack Developer",
-      "description": "Collaborate with distributed teams to build scalable web platforms from anywhere in India.",
-      "datePosted": "2025-07-06",
-      "jobLocation": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IN"
-        }
-      },
-      "hiringOrganization": {
-        "@type": "Organization",
-        "name": "Jobs AI",
-        "sameAs": "https://jobsai.in"
-      },
-      "employmentType": ["FULL_TIME", "PART_TIME"],
-      "workHours": "Flexible"
-    }
-  ]
-}
-</script>
-
-  <!-- Structured Data - Experienced Full Stack Developer Jobs -->
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Experienced Full Stack Developer Jobs in India",
-  "description": "Mid‑to‑senior level Full Stack Developer opportunities across India",
-  "url": "https://jobsai.in/jobs/experienced",
-  "numberOfItems": 1,
-  "itemListElement": [
-    {
-      "@type": "JobPosting",
-      "title": "Senior Full Stack Developer",
-      "description": "Lead end‑to‑end development of web applications, mentor juniors, and architect scalable solutions.",
-      "datePosted": "2025-07-06",
-      "jobLocation": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IN"
-        }
-      },
-      "hiringOrganization": {
-        "@type": "Organization",
-        "name": "Jobs AI",
-        "sameAs": "https://jobsai.in"
-      },
-      "employmentType": ["FULL_TIME", "CONTRACTOR"],
-      "workHours": "Flexible"
-    }
-  ]
-}
-</script>
-
-  <!-- Structured Data - Enhanced Breadcrumb -->
+  <!-- Enhanced Breadcrumb List -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -416,55 +299,223 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://jobsai.in/"
+        "item": "https://jobsai.in/",
+        "description": "Jobs AI - India's leading job platform for tech careers"
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Freshers Jobs in India",
-        "item": "https://jobsai.in/jobs/fresher"
+        "name": "Freshers Jobs",
+        "item": "https://jobsai.in/jobs/fresher",
+        "description": "Entry-level tech jobs for fresh graduates across India"
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Internships in India",
-        "item": "https://jobsai.in/jobs/internship"
+        "name": "Internships",
+        "item": "https://jobsai.in/jobs/internship",
+        "description": "Hands-on internship opportunities for students and new graduates"
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "Remote Jobs in India",
-        "item": "https://jobsai.in/jobs/remote"
+        "name": "Remote Jobs",
+        "item": "https://jobsai.in/jobs/remote",
+        "description": "Work-from-home tech opportunities across India"
       },
       {
         "@type": "ListItem",
         "position": 5,
-        "name": "Experienced Jobs in India",
-        "item": "https://jobsai.in/jobs/experienced"
+        "name": "Experienced Jobs",
+        "item": "https://jobsai.in/jobs/experienced",
+        "description": "Mid-to-senior level tech positions for experienced professionals"
       },
       {
         "@type": "ListItem",
         "position": 6,
         "name": "Companies",
-        "item": "https://jobsai.in/companies"
-      },
+        "item": "https://jobsai.in/companies",
+        "description": "Top companies hiring tech talent in India"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Service Schema for Job Categories -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Jobs AI Platform Services",
+    "provider": {
+      "@type": "Organization",
+      "name": "Jobs AI",
+      "url": "https://jobsai.in"
+    },
+    "serviceType": "Job Search Platform",
+    "description": "Comprehensive job search platform for tech professionals in India",
+    "areaServed": "India",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Job Categories",
+      "itemListElement": [
+        {
+          "@type": "OfferCatalog",
+          "name": "Freshers Jobs",
+          "description": "Entry-level positions for fresh graduates",
+          "url": "https://jobsai.in/jobs/fresher"
+        },
+        {
+          "@type": "OfferCatalog", 
+          "name": "Internships",
+          "description": "Hands-on learning opportunities for students",
+          "url": "https://jobsai.in/jobs/internship"
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Remote Jobs",
+          "description": "Work-from-home opportunities across India",
+          "url": "https://jobsai.in/jobs/remote"
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Experienced Jobs", 
+          "description": "Mid-to-senior level positions for experienced professionals",
+          "url": "https://jobsai.in/jobs/experienced"
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Your existing JobPosting schemas remain the same -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Freshers Full Stack Developer Jobs in India",
+    "description": "Entry‑level Full Stack Developer positions for fresh graduates across India",
+    "url": "https://jobsai.in/jobs/fresher",
+    "numberOfItems": 1,
+    "itemListElement": [
       {
-        "@type": "ListItem",
-        "position": 7,
-        "name": "Job Categories",
-        "item": "https://jobsai.in/categories"
-      },
+        "@type": "JobPosting",
+        "title": "Full Stack Developer (Fresher)",
+        "description": "Kickstart your career as a Full Stack Developer, working with modern JavaScript frameworks and backend technologies.",
+        "datePosted": "2025-07-06",
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+          }
+        },
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Jobs AI",
+          "sameAs": "https://jobsai.in"
+        },
+        "employmentType": ["FULL_TIME"],
+        "workHours": "Flexible"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Full Stack Developer Internships in India",
+    "description": "Hands‑on internship opportunities for aspiring Full Stack Developers across India",
+    "url": "https://jobsai.in/jobs/internship",
+    "numberOfItems": 1,
+    "itemListElement": [
       {
-        "@type": "ListItem",
-        "position": 8,
-        "name": "About Us",
-        "item": "https://jobsai.in/about"
-      },
+        "@type": "JobPosting",
+        "title": "Full Stack Developer Intern",
+        "description": "Gain real‑world experience building end‑to‑end web applications under mentorship.",
+        "datePosted": "2025-07-06",
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+          }
+        },
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Jobs AI",
+          "sameAs": "https://jobsai.in"
+        },
+        "employmentType": ["INTERNSHIP"],
+        "workHours": "Flexible"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Remote Full Stack Developer Jobs in India",
+    "description": "Work-from-home Full Stack Developer roles open to candidates across India",
+    "url": "https://jobsai.in/jobs/remote",
+    "numberOfItems": 1,
+    "itemListElement": [
       {
-        "@type": "ListItem",
-        "position": 9,
-        "name": "Contact",
-        "item": "https://jobsai.in/contact"
+        "@type": "JobPosting",
+        "title": "Remote Full Stack Developer",
+        "description": "Collaborate with distributed teams to build scalable web platforms from anywhere in India.",
+        "datePosted": "2025-07-06",
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+          }
+        },
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Jobs AI",
+          "sameAs": "https://jobsai.in"
+        },
+        "employmentType": ["FULL_TIME", "PART_TIME"],
+        "workHours": "Flexible"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Experienced Full Stack Developer Jobs in India",
+    "description": "Mid‑to‑senior level Full Stack Developer opportunities across India",
+    "url": "https://jobsai.in/jobs/experienced",
+    "numberOfItems": 1,
+    "itemListElement": [
+      {
+        "@type": "JobPosting",
+        "title": "Senior Full Stack Developer",
+        "description": "Lead end‑to‑end development of web applications, mentor juniors, and architect scalable solutions.",
+        "datePosted": "2025-07-06",
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+          }
+        },
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Jobs AI",
+          "sameAs": "https://jobsai.in"
+        },
+        "employmentType": ["FULL_TIME", "CONTRACTOR"],
+        "workHours": "Flexible"
       }
     ]
   }
