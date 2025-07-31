@@ -28,6 +28,51 @@ async function getJobUrls(): Promise<string[]> {
   ];
 }
 
+// Helper function to normalize URLs for canonical tags
+function normalizeCanonicalUrl(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    
+    // Ensure HTTPS in production
+    if (process.env['NODE_ENV'] === 'production') {
+      urlObj.protocol = 'https:';
+    }
+    
+    // Remove trailing slash (except root)
+    const pathname = urlObj.pathname === '/' ? '/' : urlObj.pathname.replace(/\/$/, '');
+    
+    // Remove common tracking parameters
+    const paramsToRemove = ['utm_source', 'utm_medium', 'utm_campaign', 'fbclid', 'gclid'];
+    paramsToRemove.forEach(param => urlObj.searchParams.delete(param));
+    
+    const search = urlObj.searchParams.toString();
+    return `${urlObj.protocol}//${urlObj.host}${pathname}${search ? '?' + search : ''}`;
+  } catch {
+    return url; // Fallback to original if URL parsing fails
+  }
+}
+
+// Add structured data for better indexing
+function addStructuredData(html: string, url: string): string {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": url,
+    "name": "Jobs AI - Find Your Perfect Job",
+    "description": "Discover the best job opportunities with Jobs AI",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Jobs AI",
+      "url": "https://jobsai.in"
+    }
+  };
+
+  return html.replace(
+    /<\/head>/i,
+    `  <script type="application/ld+json">${JSON.stringify(structuredData)}</script>\n</head>`
+  );
+}
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -45,6 +90,23 @@ export function app(): express.Express {
     next();
   });
 
+  // Force HTTPS redirect in production
+  server.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https' && process.env['NODE_ENV'] === 'production') {
+      return res.redirect(301, `https://${req.header('host')}${req.url}`);
+    }
+    next();
+  });
+
+  // Redirect trailing slashes to non-trailing (except root)
+  server.use((req, res, next) => {
+    if (req.path !== '/' && req.path.endsWith('/')) {
+      const redirectUrl = req.path.slice(0, -1) + (req.url.includes('?') ? req.url.substring(req.path.length) : '');
+      return res.redirect(301, redirectUrl);
+    }
+    next();
+  });
+
   // Middleware to prevent caching of 404 static files
   server.use((req, res, next) => {
     if (req.path.match(/\.(ico|png|jpg|jpeg|gif|css|js|woff|woff2|ttf|eot|svg|txt)$/)) {
@@ -59,16 +121,16 @@ export function app(): express.Express {
   server.get('/favicon.ico', (req, res) => {
     console.log('Serving favicon.ico');
     const faviconPath = join(browserDistFolder, 'favicon.ico');
-    
+
     res.setHeader('Content-Type', 'image/x-icon');
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    
+
     res.sendFile(faviconPath, (err) => {
       if (err) {
         console.log('Favicon error:', err);
         res.status(404)
-           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-           .send('Favicon not found');
+          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+          .send('Favicon not found');
       }
     });
   });
@@ -80,8 +142,8 @@ export function app(): express.Express {
     res.sendFile(join(browserDistFolder, 'ads.txt'), (err) => {
       if (err) {
         res.status(404)
-           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-           .send('ads.txt not found');
+          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+          .send('ads.txt not found');
       }
     });
   });
@@ -93,8 +155,8 @@ export function app(): express.Express {
     res.sendFile(join(browserDistFolder, 'robots.txt'), (err) => {
       if (err) {
         res.status(404)
-           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-           .send('robots.txt not found');
+          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+          .send('robots.txt not found');
       }
     });
   });
@@ -106,8 +168,8 @@ export function app(): express.Express {
     res.sendFile(join(browserDistFolder, req.path), (err) => {
       if (err) {
         res.status(404)
-           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-           .send('CSS file not found');
+          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+          .send('CSS file not found');
       }
     });
   });
@@ -119,8 +181,8 @@ export function app(): express.Express {
     res.sendFile(join(browserDistFolder, req.path), (err) => {
       if (err) {
         res.status(404)
-           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-           .send('JS file not found');
+          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+          .send('JS file not found');
       }
     });
   });
@@ -131,8 +193,8 @@ export function app(): express.Express {
     res.sendFile(join(browserDistFolder, req.path), (err) => {
       if (err) {
         res.status(404)
-           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-           .send('Polyfills file not found');
+          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+          .send('Polyfills file not found');
       }
     });
   });
@@ -143,8 +205,8 @@ export function app(): express.Express {
     res.sendFile(join(browserDistFolder, req.path), (err) => {
       if (err) {
         res.status(404)
-           .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-           .send('Chunk file not found');
+          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+          .send('Chunk file not found');
       }
     });
   });
@@ -192,8 +254,11 @@ export function app(): express.Express {
 
   // All regular routes use the Angular engine (this should be LAST)
   server.get('*', (req, res, next) => {
+    const fullUrl = `${req.protocol}://${req.headers.host}${req.originalUrl}`;
+    const canonicalUrl = normalizeCanonicalUrl(fullUrl);
     console.log('SSR route:', req.path);
     const { protocol, originalUrl, baseUrl, headers } = req;
+    
     commonEngine
       .render({
         bootstrap,
@@ -205,7 +270,24 @@ export function app(): express.Express {
           { provide: 'CACHE_BUSTER', useValue: Date.now() },
         ],
       })
-      .then((html) => res.send(html))
+      .then((html) => {
+        // Remove any existing canonical tags and add the correct one
+        let updatedHtml = html.replace(
+          /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/gi,
+          ''
+        );
+        
+        // Insert canonical tag in head section
+        updatedHtml = updatedHtml.replace(
+          /<\/head>/i,
+          `  <link rel="canonical" href="${canonicalUrl}" />\n</head>`
+        );
+
+        // Add structured data for better SEO
+        updatedHtml = addStructuredData(updatedHtml, canonicalUrl);
+        
+        res.send(updatedHtml);
+      })
       .catch((err) => next(err));
   });
 
