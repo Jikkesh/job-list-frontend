@@ -139,13 +139,14 @@ export function app(): express.Express {
   server.get('/ads.txt', (req, res) => {
     console.log('Serving ads.txt');
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(join(browserDistFolder, 'ads.txt'), (err) => {
-      if (err) {
-        res.status(404)
-          .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-          .send('ads.txt not found');
-      }
-    });
+    res.redirect(301, 'https://srv.adstxtmanager.com/19390/jobsai.in');
+    // res.sendFile(join(browserDistFolder, 'ads.txt'), (err) => {
+    //   if (err) {
+    //     res.status(404)
+    //       .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+    //       .send('ads.txt not found');
+    //   }
+    // });
   });
 
   // Serve robots.txt
